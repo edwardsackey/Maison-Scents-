@@ -1,5 +1,4 @@
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 
@@ -11,7 +10,7 @@ interface FaqItem {
 @Component({
   selector: 'app-faq',
   standalone: true,
-  imports: [RouterLink, NavbarComponent, FooterComponent],
+  imports: [NavbarComponent, FooterComponent],
   templateUrl: './faq.component.html',
   styleUrl: './faq.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
