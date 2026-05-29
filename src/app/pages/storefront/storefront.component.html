@@ -66,104 +66,100 @@
 <app-footer></app-footer>
 
 <!-- Filter Drawer -->
-@if (filterOpen()) {
-  <div class="drawer-backdrop" (click)="toggleFilter()"></div>
-  <aside class="filter-drawer">
-    <div class="filter-drawer__pill"></div>
+<div class="drawer-backdrop" [class.open]="filterOpen()" (click)="toggleFilter()"></div>
+<aside class="filter-drawer" [class.open]="filterOpen()">
+  <div class="filter-drawer__pill"></div>
 
-    <div class="filter-drawer__header">
-      <h2 class="filter-drawer__title">FILTER</h2>
-      <button class="filter-drawer__clear" (click)="clearFilters()">CLEAR ALL</button>
-    </div>
+  <div class="filter-drawer__header">
+    <h2 class="filter-drawer__title">FILTER</h2>
+    <button class="filter-drawer__clear" (click)="clearFilters()">CLEAR ALL</button>
+  </div>
 
-    <div class="filter-drawer__section">
-      <h3 class="filter-drawer__section-title">FAMILY</h3>
-      <div class="filter-drawer__chips">
-        @for (family of scentFamilies; track family) {
-          <button class="filter-drawer__chip"
-                  [class.active]="isFamilySelected(family)"
-                  (click)="toggleFamily(family)">
-            {{ family }}
-          </button>
-        }
+  <div class="filter-drawer__section">
+    <h3 class="filter-drawer__section-title">FAMILY</h3>
+    <div class="filter-drawer__chips">
+      @for (family of scentFamilies; track family) {
         <button class="filter-drawer__chip"
-                [class.active]="filterService.sortBy() === 'best-selling'"
-                (click)="filterService.sortBy.set(filterService.sortBy() === 'best-selling' ? 'default' : 'best-selling')">
-          Best Selling
+                [class.active]="isFamilySelected(family)"
+                (click)="toggleFamily(family)">
+          {{ family }}
         </button>
-      </div>
-    </div>
-
-    <div class="filter-drawer__section">
-      <h3 class="filter-drawer__section-title">BRAND</h3>
-      <div class="filter-drawer__brands">
-        @for (brand of brands; track brand.name) {
-          <label class="filter-drawer__brand">
-            <input type="checkbox"
-                   [checked]="isBrandSelected(brand.name)"
-                   (change)="toggleBrand(brand.name)">
-            <span class="filter-drawer__checkbox"></span>
-            <span class="filter-drawer__brand-name">{{ brand.name }}</span>
-            <span class="filter-drawer__brand-count">({{ brand.count }})</span>
-          </label>
-        }
-      </div>
-    </div>
-
-    <div class="filter-drawer__actions">
-      <button class="filter-drawer__reset" (click)="clearFilters()">RESET</button>
-      <button class="filter-drawer__apply" (click)="applyFilters()">
-        SHOW {{ filterService.resultCount() }} RESULTS
+      }
+      <button class="filter-drawer__chip"
+              [class.active]="filterService.sortBy() === 'best-selling'"
+              (click)="filterService.sortBy.set(filterService.sortBy() === 'best-selling' ? 'default' : 'best-selling')">
+        Best Selling
       </button>
     </div>
-  </aside>
-}
+  </div>
+
+  <div class="filter-drawer__section">
+    <h3 class="filter-drawer__section-title">BRAND</h3>
+    <div class="filter-drawer__brands">
+      @for (brand of brands; track brand.name) {
+        <label class="filter-drawer__brand">
+          <input type="checkbox"
+                 [checked]="isBrandSelected(brand.name)"
+                 (change)="toggleBrand(brand.name)">
+          <span class="filter-drawer__checkbox"></span>
+          <span class="filter-drawer__brand-name">{{ brand.name }}</span>
+          <span class="filter-drawer__brand-count">({{ brand.count }})</span>
+        </label>
+      }
+    </div>
+  </div>
+
+  <div class="filter-drawer__actions">
+    <button class="filter-drawer__reset" (click)="clearFilters()">RESET</button>
+    <button class="filter-drawer__apply" (click)="applyFilters()">
+      SHOW {{ filterService.resultCount() }} RESULTS
+    </button>
+  </div>
+</aside>
 
 <!-- Hamburger Menu -->
-@if (menuOpen()) {
-  <div class="drawer-backdrop" (click)="toggleMenu()"></div>
-  <aside class="menu-drawer">
-    <h2 class="menu-drawer__title">Account</h2>
+<div class="drawer-backdrop" [class.open]="menuOpen()" (click)="toggleMenu()"></div>
+<aside class="menu-drawer" [class.open]="menuOpen()">
+  <h2 class="menu-drawer__title">Account</h2>
 
-    <nav class="menu-drawer__nav">
-      <a class="menu-drawer__item" routerLink="/cart">
-        <span>My Orders</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-          <path d="M9 18L15 12L9 6" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
-      <div class="menu-drawer__divider"></div>
+  <nav class="menu-drawer__nav">
+    <a class="menu-drawer__item" routerLink="/cart" (click)="menuOpen.set(false)">
+      <span>My Orders</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <path d="M9 18L15 12L9 6" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <div class="menu-drawer__divider"></div>
 
-      <a class="menu-drawer__item" href="#">
-        <span>Location</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-          <path d="M9 18L15 12L9 6" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
-      <div class="menu-drawer__divider"></div>
+    <a class="menu-drawer__item" href="#" (click)="menuOpen.set(false)">
+      <span>Location</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <path d="M9 18L15 12L9 6" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <div class="menu-drawer__divider"></div>
 
-      <a class="menu-drawer__item" routerLink="/storefront">
-        <span>Signature Perfumes</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-          <path d="M9 18L15 12L9 6" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
-      <div class="menu-drawer__divider"></div>
+    <a class="menu-drawer__item" routerLink="/storefront" (click)="menuOpen.set(false)">
+      <span>Signature Perfumes</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <path d="M9 18L15 12L9 6" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <div class="menu-drawer__divider"></div>
 
-      <button class="menu-drawer__item" (click)="enableAdmin()">
-        <span>Admin</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-          <path d="M9 18L15 12L9 6" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-      <div class="menu-drawer__divider"></div>
+    <button class="menu-drawer__item" (click)="enableAdmin()">
+      <span>Admin</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <path d="M9 18L15 12L9 6" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <div class="menu-drawer__divider"></div>
 
-      <button class="menu-drawer__item menu-drawer__item--signout" (click)="signOut()">
-        <span>Sign Out</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-          <path d="M9 18L15 12L9 6" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-    </nav>
-  </aside>
-}
+    <button class="menu-drawer__item menu-drawer__item--signout" (click)="signOut()">
+      <span>Sign Out</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <path d="M9 18L15 12L9 6" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </nav>
+</aside>

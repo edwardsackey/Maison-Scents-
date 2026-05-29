@@ -7,11 +7,25 @@
       <span class="card__badge">NEW</span>
     }
 
-    <button class="card__wishlist" (click)="toggleWishlist($event)" aria-label="Toggle wishlist">
-      <svg width="16" height="15" viewBox="0 0 20 18" [attr.fill]="isWishlisted ? '#1A1A1A' : 'none'">
+    <button class="card__wishlist"
+            [class.active]="isWishlisted"
+            [class.pop]="justToggled()"
+            (click)="toggleWishlist($event)"
+            aria-label="Toggle wishlist">
+      <svg width="16" height="15" viewBox="0 0 20 18"
+           [attr.fill]="isWishlisted ? '#E91E63' : 'none'"
+           [attr.stroke]="isWishlisted ? '#E91E63' : '#1A1A1A'">
         <path d="M10 17.5C10 17.5 1 12 1 6C1 3.23858 3.23858 1 6 1C7.74 1 9.26 1.93 10 3.33C10.74 1.93 12.26 1 14 1C16.7614 1 19 3.23858 19 6C19 12 10 17.5 10 17.5Z"
-              stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
+      @if (justToggled() && isWishlisted) {
+        <span class="card__sparkle card__sparkle--1"></span>
+        <span class="card__sparkle card__sparkle--2"></span>
+        <span class="card__sparkle card__sparkle--3"></span>
+        <span class="card__sparkle card__sparkle--4"></span>
+        <span class="card__sparkle card__sparkle--5"></span>
+        <span class="card__sparkle card__sparkle--6"></span>
+      }
     </button>
   </div>
 

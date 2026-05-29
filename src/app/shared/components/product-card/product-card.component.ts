@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Product } from '../../../core/models/product.model';
 import { WishlistService } from '../../../core/services/wishlist.service';
@@ -16,6 +16,7 @@ export class ProductCardComponent {
   animationDelay = input<number>(0);
 
   wishlist = inject(WishlistService);
+  justToggled = signal(false);
 
   get isWishlisted(): boolean {
     return this.wishlist.isWishlisted(this.product().id);
@@ -25,5 +26,7 @@ export class ProductCardComponent {
     event.preventDefault();
     event.stopPropagation();
     this.wishlist.toggle(this.product().id);
+    this.justToggled.set(true);
+    setTimeout(() => this.justToggled.set(false), 600);
   }
 }
