@@ -1,0 +1,236 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// Hero
+.hero {
+  position: relative;
+  height: 70vh;
+  min-height: 400px;
+  max-height: 600px;
+  overflow: hidden;
+
+  &__image-wrap {
+    position: absolute;
+    inset: 0;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__overlay {
+    @include overlay-fill;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%);
+  }
+
+  &__content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: $space-2xl $space-md;
+  }
+
+  &__label {
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    letter-spacing: $ls-widest;
+    color: rgba(255,255,255,0.8);
+    text-transform: uppercase;
+    margin-bottom: $space-sm;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $fs-3xl;
+    font-weight: $fw-regular;
+    color: #FFFFFF;
+    line-height: $lh-tight;
+
+    @include respond-to(tablet) {
+      font-size: $fs-4xl;
+    }
+  }
+}
+
+// Intro
+.intro {
+  padding: $space-3xl $space-md;
+
+  &__container {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  &__line {
+    width: 40px;
+    height: 2px;
+    background: $color-text-primary;
+    margin-bottom: $space-lg;
+  }
+
+  &__heading {
+    font-family: $font-heading;
+    font-size: $fs-2xl;
+    font-weight: $fw-regular;
+    color: $color-text-primary;
+    margin-bottom: $space-lg;
+
+    @include respond-to(tablet) {
+      font-size: $fs-3xl;
+    }
+  }
+
+  &__text {
+    font-size: $fs-base;
+    color: $color-text-secondary;
+    line-height: $lh-relaxed;
+    margin-bottom: $space-md;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Values Grid
+.values {
+  padding: 0 $space-md $space-3xl;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-lg;
+    max-width: 900px;
+    margin: 0 auto;
+
+    @include respond-to(tablet) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: $space-xl;
+    }
+  }
+
+  &__card {
+    padding: $space-xl;
+    background: $color-surface;
+    border-radius: $radius-lg;
+  }
+
+  &__number {
+    font-family: $font-heading;
+    font-size: $fs-3xl;
+    font-weight: $fw-light;
+    color: $color-border;
+    display: block;
+    margin-bottom: $space-sm;
+    line-height: 1;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $fs-lg;
+    font-weight: $fw-medium;
+    color: $color-text-primary;
+    margin-bottom: $space-sm;
+  }
+
+  &__text {
+    font-size: $fs-sm;
+    color: $color-text-secondary;
+    line-height: $lh-relaxed;
+  }
+}
+
+// Stats
+.stats {
+  padding: $space-3xl $space-md;
+  background: $color-text-primary;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $space-xl;
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+
+    @include respond-to(tablet) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: $space-xs;
+  }
+
+  &__value {
+    font-family: $font-heading;
+    font-size: $fs-3xl;
+    font-weight: $fw-regular;
+    color: #FFFFFF;
+
+    @include respond-to(tablet) {
+      font-size: $fs-4xl;
+    }
+  }
+
+  &__label {
+    font-size: $fs-sm;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: $ls-wide;
+  }
+}
+
+// Promise
+.promise {
+  padding: $space-3xl $space-md;
+
+  &__container {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  &__heading {
+    font-family: $font-heading;
+    font-size: $fs-2xl;
+    font-weight: $fw-regular;
+    color: $color-text-primary;
+    margin-bottom: $space-lg;
+
+    @include respond-to(tablet) {
+      font-size: $fs-3xl;
+    }
+  }
+
+  &__text {
+    font-size: $fs-base;
+    color: $color-text-secondary;
+    line-height: $lh-relaxed;
+    margin-bottom: $space-md;
+  }
+
+  &__cta {
+    display: inline-block;
+    margin-top: $space-lg;
+    padding: $space-md $space-2xl;
+    background: $color-cta;
+    color: $color-cta-text;
+    font-size: $fs-sm;
+    font-weight: $fw-semibold;
+    letter-spacing: $ls-wider;
+    min-height: 48px;
+    line-height: 48px - $space-md * 2;
+    transition: opacity $transition-fast;
+
+    &:hover {
+      opacity: 0.85;
+    }
+  }
+}

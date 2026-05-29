@@ -36,6 +36,14 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/order-confirmation/order-confirmation.component').then(m => m.OrderConfirmationComponent)
   },
   {
+    path: 'about',
+    loadComponent: () => import('./pages/about/about.component').then(m => m.AboutComponent)
+  },
+  {
+    path: 'faq',
+    loadComponent: () => import('./pages/faq/faq.component').then(m => m.FaqComponent)
+  },
+  {
     path: 'admin',
     loadComponent: () => import('./pages/admin/admin-layout/admin-layout.component').then(m => m.AdminLayoutComponent),
     canActivate: [adminGuard],

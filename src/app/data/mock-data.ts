@@ -265,7 +265,7 @@ export const MOCK_PRODUCTS: Product[] = [
     gender: 'male',
     scent_family: 'Gourmand',
     description: 'An addictive coffee-infused fragrance blending Arabic qahwa with sweet spices and dark chocolate.',
-    images: ['assets/images/2fa5a555413e4b2d59030405113be6dc.jpg'],
+    images: ['assets/images/Khamra-Qahwa.jpg'],
     sizes: [
       { ml: 30, price: 260 },
       { ml: 50, price: 390 },
