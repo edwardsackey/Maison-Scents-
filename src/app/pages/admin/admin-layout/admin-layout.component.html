@@ -1,0 +1,73 @@
+<div class="admin-layout" [class.sidebar-open]="sidebarOpen()">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar__brand">MAISON SCENTS</div>
+    <nav class="sidebar__nav">
+      <a class="sidebar__link" routerLink="/admin/dashboard" routerLinkActive="active" (click)="sidebarOpen.set(false)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/>
+          <rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/>
+          <rect x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/>
+          <rect x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+        Dashboard
+      </a>
+      <a class="sidebar__link" routerLink="/admin/products" routerLinkActive="active" (click)="sidebarOpen.set(false)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M20 7L12 3L4 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M20 7V17L12 21L4 17V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 12L20 7" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M12 12L4 7" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M12 12V21" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+        Products
+      </a>
+      <a class="sidebar__link" routerLink="/admin/orders" routerLinkActive="active" (click)="sidebarOpen.set(false)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M9 5H7C5.89543 5 5 5.89543 5 7V19C5 20.1046 5.89543 21 7 21H17C18.1046 21 19 20.1046 19 19V7C19 5.89543 18.1046 5 17 5H15" stroke="currentColor" stroke-width="1.5"/>
+          <rect x="9" y="3" width="6" height="4" rx="1" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+        Orders
+      </a>
+      <a class="sidebar__link" routerLink="/admin/best-selling" routerLinkActive="active" (click)="sidebarOpen.set(false)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M18 20V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M12 20V4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M6 20V14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        Best Selling
+      </a>
+    </nav>
+
+    <a class="sidebar__link sidebar__back" routerLink="/storefront">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <path d="M19 12H5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M12 19L5 12L12 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Back to Store
+    </a>
+  </aside>
+
+  <!-- Main -->
+  <div class="main">
+    <header class="topbar">
+      <button class="topbar__toggle" (click)="toggleSidebar()">
+        <svg width="22" height="14" viewBox="0 0 22 14" fill="none">
+          <path d="M1 1H21" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M1 7H21" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M1 13H21" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <span class="topbar__title">MAISON SCENTS — Admin</span>
+      <span class="topbar__user">{{ auth.currentUser()?.name || 'Admin' }}</span>
+    </header>
+
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+@if (sidebarOpen()) {
+  <div class="sidebar-backdrop" (click)="sidebarOpen.set(false)"></div>
+}

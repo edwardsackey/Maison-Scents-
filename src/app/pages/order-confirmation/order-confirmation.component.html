@@ -1,0 +1,46 @@
+<div class="confirm">
+  <h1 class="confirm__title">Payment Complete</h1>
+  <p class="confirm__subtitle">Thank you for shopping with us</p>
+
+  <div class="confirm__divider"></div>
+
+  <!-- Animated Checkmark -->
+  <div class="confirm__icon">
+    <svg class="checkmark" viewBox="0 0 52 52">
+      <circle class="checkmark__circle" cx="26" cy="26" r="24" fill="none"/>
+      <path class="checkmark__check" d="M14 27L22 35L38 17" fill="none"/>
+    </svg>
+  </div>
+
+  @if (lastOrder; as order) {
+    <!-- Order Details -->
+    <div class="confirm__order-card">
+      <h2 class="confirm__card-title">Order Details</h2>
+
+      @for (item of order.items; track item.productId) {
+        <div class="confirm__item">
+          <div class="confirm__item-image">
+            <img [src]="item.image" [alt]="item.productName">
+          </div>
+          <div class="confirm__item-info">
+            <span class="confirm__item-brand">{{ item.brand }}</span>
+            <h3 class="confirm__item-name">{{ item.productName }}</h3>
+            <span class="confirm__item-size">{{ item.size }}ml</span>
+          </div>
+          <div class="confirm__item-right">
+            <span class="confirm__item-qty">{{ item.quantity }}</span>
+            <span class="confirm__item-price">GHS {{ (item.price * item.quantity).toLocaleString() }}</span>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Delivery Date -->
+    <div class="confirm__delivery-card">
+      <span class="confirm__delivery-label">Estimated Delivery Date</span>
+      <span class="confirm__delivery-date">{{ order.estimatedDelivery }}</span>
+    </div>
+  }
+
+  <button class="confirm__btn" (click)="continueShopping()">CONTINUE SHOPPING</button>
+</div>

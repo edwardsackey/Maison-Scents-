@@ -1,0 +1,134 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 240px;
+  background: $color-text-primary;
+  color: $color-cta-text;
+  padding: $space-lg $space-md;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: $z-drawer;
+  transform: translateX(-100%);
+  transition: transform $transition-slow;
+
+  @include respond-to(desktop) {
+    position: sticky;
+    transform: none;
+  }
+
+  .sidebar-open & {
+    transform: translateX(0);
+  }
+
+  &__brand {
+    font-family: $font-heading;
+    font-size: $fs-md;
+    font-weight: $fw-medium;
+    letter-spacing: $ls-wider;
+    padding-bottom: $space-lg;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    margin-bottom: $space-lg;
+  }
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    gap: $space-xs;
+    flex: 1;
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+    padding: $space-sm $space-md;
+    border-radius: $radius-md;
+    font-size: $fs-sm;
+    color: rgba(255, 255, 255, 0.7);
+    transition: all $transition-fast;
+
+    &:hover, &.active {
+      background: rgba(255, 255, 255, 0.1);
+      color: $color-cta-text;
+    }
+  }
+
+  &__back {
+    margin-top: auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: $space-md;
+  }
+}
+
+.sidebar-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: $z-overlay;
+
+  @include respond-to(desktop) {
+    display: none;
+  }
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+
+  @include respond-to(desktop) {
+    margin-left: 0;
+  }
+}
+
+.topbar {
+  @include flex-between;
+  padding: $space-md $space-lg;
+  border-bottom: 1px solid $color-border;
+  background: $color-bg;
+  position: sticky;
+  top: 0;
+  z-index: $z-sticky;
+
+  &__toggle {
+    @include touch-target;
+    @include flex-center;
+
+    @include respond-to(desktop) {
+      display: none;
+    }
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $fs-md;
+    font-weight: $fw-medium;
+    letter-spacing: $ls-wide;
+  }
+
+  &__user {
+    font-size: $fs-sm;
+    color: $color-text-secondary;
+  }
+}
+
+.content {
+  padding: $space-lg;
+
+  @include respond-to(desktop) {
+    padding: $space-xl;
+  }
+}

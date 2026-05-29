@@ -1,0 +1,134 @@
+<div class="header">
+  <h1 class="page-title">Products</h1>
+  <button class="add-btn" (click)="openAddForm()">+ Add New Product</button>
+</div>
+
+<div class="table-wrap">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Brand</th>
+        <th>Gender</th>
+        <th>Family</th>
+        <th>Stock</th>
+        <th>Price Range</th>
+        <th>Featured</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (p of productService.products(); track p.id) {
+        <tr>
+          <td>
+            <div class="thumb">
+              <img [src]="p.images[0]" [alt]="p.name">
+            </div>
+          </td>
+          <td class="name-cell">{{ p.name }}</td>
+          <td>{{ p.brand }}</td>
+          <td class="capitalize">{{ p.gender }}</td>
+          <td>{{ p.scent_family }}</td>
+          <td [class.out-of-stock]="p.stock_quantity === 0">{{ p.stock_quantity }}</td>
+          <td>{{ getPriceRange(p) }}</td>
+          <td>
+            <button class="toggle" [class.active]="p.is_featured"
+                    (click)="productService.toggleFeatured(p.id)">
+              {{ p.is_featured ? 'Yes' : 'No' }}
+            </button>
+          </td>
+          <td>
+            <div class="actions">
+              <button class="action-btn" (click)="editProduct(p)">Edit</button>
+              <button class="action-btn action-btn--danger" (click)="deleteProduct(p.id)">Delete</button>
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<!-- Product Form Panel -->
+@if (showForm()) {
+  <div class="form-backdrop" (click)="showForm.set(false)"></div>
+  <div class="form-panel">
+    <div class="form-panel__header">
+      <h2>{{ editingProduct() ? 'Edit Product' : 'Add New Product' }}</h2>
+      <button (click)="showForm.set(false)">&times;</button>
+    </div>
+
+    <div class="form-panel__body">
+      <label class="field">
+        <span>Name</span>
+        <input type="text" [(ngModel)]="form.name">
+      </label>
+      <label class="field">
+        <span>Brand</span>
+        <input type="text" [(ngModel)]="form.brand">
+      </label>
+      <label class="field">
+        <span>Gender</span>
+        <select [(ngModel)]="form.gender">
+          <option value="female">Female</option>
+          <option value="male">Male</option>
+          <option value="unisex">Unisex</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>Scent Family</span>
+        <select [(ngModel)]="form.scent_family">
+          <option value="Floral">Floral</option>
+          <option value="Woody">Woody</option>
+          <option value="Oriental">Oriental</option>
+          <option value="Fresh">Fresh</option>
+          <option value="Gourmand">Gourmand</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>Description</span>
+        <textarea [(ngModel)]="form.description" rows="3"></textarea>
+      </label>
+      <label class="field">
+        <span>Top Notes (comma separated)</span>
+        <input type="text" [(ngModel)]="form.top_notes">
+      </label>
+      <label class="field">
+        <span>Heart Notes (comma separated)</span>
+        <input type="text" [(ngModel)]="form.heart_notes">
+      </label>
+      <label class="field">
+        <span>Base Notes (comma separated)</span>
+        <input type="text" [(ngModel)]="form.base_notes">
+      </label>
+
+      <div class="field-row">
+        <label class="field"><span>30ml Price</span><input type="number" [(ngModel)]="form.size30"></label>
+        <label class="field"><span>50ml Price</span><input type="number" [(ngModel)]="form.size50"></label>
+        <label class="field"><span>100ml Price</span><input type="number" [(ngModel)]="form.size100"></label>
+      </div>
+
+      <div class="field-row">
+        <label class="field"><span>Stock</span><input type="number" [(ngModel)]="form.stock_quantity"></label>
+        <label class="field"><span>Delivery Days</span><input type="number" [(ngModel)]="form.delivery_days"></label>
+      </div>
+
+      <div class="field-row">
+        <label class="check"><input type="checkbox" [(ngModel)]="form.is_new"> New</label>
+        <label class="check"><input type="checkbox" [(ngModel)]="form.is_featured"> Featured</label>
+      </div>
+
+      <label class="field">
+        <!-- IMAGE UPLOAD PLACEHOLDER -->
+        <!-- Replace input with Cloudinary upload widget when backend is ready -->
+        <span>Image Path</span>
+        <input type="text" [(ngModel)]="form.image" placeholder="assets/images/...">
+      </label>
+
+      <button class="save-btn" (click)="saveProduct()">
+        {{ editingProduct() ? 'Update Product' : 'Add Product' }}
+      </button>
+    </div>
+  </div>
+}

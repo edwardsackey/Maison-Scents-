@@ -1,0 +1,9 @@
+<div class="sizes">
+  @for (size of sizes(); track size.ml) {
+    <button class="sizes__pill"
+            [class.active]="selected() === size.ml"
+            (click)="selectSize(size)">
+      {{ size.ml }}ml
+    </button>
+  }
+</div>

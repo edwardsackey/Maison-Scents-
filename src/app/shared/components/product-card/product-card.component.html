@@ -1,0 +1,27 @@
+<a class="card" [routerLink]="['/product', product().id]"
+   [style.animation-delay.ms]="animationDelay()">
+  <div class="card__image-wrap">
+    <img [src]="product().images[0]" [alt]="product().name" class="card__image" loading="lazy">
+
+    @if (product().is_new) {
+      <span class="card__badge">NEW</span>
+    }
+
+    <button class="card__wishlist" (click)="toggleWishlist($event)" aria-label="Toggle wishlist">
+      <svg width="16" height="15" viewBox="0 0 20 18" [attr.fill]="isWishlisted ? '#1A1A1A' : 'none'">
+        <path d="M10 17.5C10 17.5 1 12 1 6C1 3.23858 3.23858 1 6 1C7.74 1 9.26 1.93 10 3.33C10.74 1.93 12.26 1 14 1C16.7614 1 19 3.23858 19 6C19 12 10 17.5 10 17.5Z"
+              stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="card__info">
+    <span class="card__brand">{{ product().brand }}</span>
+    <h3 class="card__name">{{ product().name }}</h3>
+    <div class="card__price-row">
+      <span class="card__size">{{ product().sizes[0].ml }}ml</span>
+      <span class="card__dot"></span>
+      <span class="card__price">GHS {{ product().sizes[0].price.toLocaleString() }}</span>
+    </div>
+  </div>
+</a>

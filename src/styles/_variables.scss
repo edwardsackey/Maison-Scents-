@@ -1,0 +1,99 @@
+// Colors — extracted from Figma design
+$color-bg: #FFFFFF;
+$color-surface: #F5F5F5;
+$color-text-primary: #1A1A1A;
+$color-text-secondary: #6B6B6B;
+$color-border: #E0E0E0;
+$color-cta: #1A1A1A;
+$color-cta-text: #FFFFFF;
+$color-badge-bg: #1A1A1A;
+$color-badge-text: #FFFFFF;
+$color-price: #1A1A1A;
+$color-overlay-default: rgba(0, 0, 0, 0.45);
+$color-overlay-hover: rgba(0, 0, 0, 0.25);
+$color-error: #D32F2F;
+$color-success: #27AE60;
+
+// Admin status colors
+$color-status-pending: #F5A623;
+$color-status-processing: #4A90E2;
+$color-status-shipped: #7B68EE;
+$color-status-delivered: #27AE60;
+$color-status-preorder: #E8651A;
+
+// Typography
+$font-heading: 'Cormorant Garamond', serif;
+$font-body: 'Inter', sans-serif;
+
+// Font sizes
+$fs-xs: 10px;
+$fs-sm: 12px;
+$fs-base: 14px;
+$fs-md: 16px;
+$fs-lg: 20px;
+$fs-xl: 24px;
+$fs-2xl: 32px;
+$fs-3xl: 40px;
+$fs-4xl: 48px;
+
+// Font weights
+$fw-light: 300;
+$fw-regular: 400;
+$fw-medium: 500;
+$fw-semibold: 600;
+$fw-bold: 700;
+
+// Letter spacing
+$ls-tight: -0.5px;
+$ls-normal: 0;
+$ls-wide: 1px;
+$ls-wider: 2px;
+$ls-widest: 3px;
+
+// Line heights
+$lh-tight: 1.2;
+$lh-normal: 1.5;
+$lh-relaxed: 1.75;
+
+// Spacing scale
+$space-xxs: 2px;
+$space-xs: 4px;
+$space-sm: 8px;
+$space-md: 16px;
+$space-lg: 24px;
+$space-xl: 32px;
+$space-2xl: 48px;
+$space-3xl: 64px;
+$space-4xl: 96px;
+
+// Breakpoints
+$mobile: 375px;
+$tablet: 768px;
+$desktop: 1280px;
+
+// Shadows
+$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+$shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+$shadow-card-hover: 0 8px 20px rgba(0, 0, 0, 0.08);
+
+// Border radius
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 12px;
+$radius-xl: 16px;
+$radius-round: 50%;
+
+// Transitions
+$transition-fast: 150ms ease;
+$transition-base: 200ms ease;
+$transition-slow: 300ms ease;
+$transition-panel: 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+// Z-index scale
+$z-base: 1;
+$z-dropdown: 100;
+$z-sticky: 200;
+$z-drawer: 300;
+$z-overlay: 400;
+$z-modal: 500;

@@ -1,0 +1,120 @@
+<app-navbar></app-navbar>
+
+<div class="payment">
+  <button class="payment__back" (click)="goBack()" aria-label="Go back">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path d="M19 12H5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M12 19L5 12L12 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <h1 class="payment__title">Payment and Delivery</h1>
+
+  <p class="payment__label">Choose Payment Option</p>
+
+  <!-- Tabs -->
+  <div class="payment__tabs">
+    <button class="payment__tab" [class.active]="activeTab() === 'card'" (click)="setTab('card')">
+      Pay with Card
+    </button>
+    <button class="payment__tab" [class.active]="activeTab() === 'momo'" (click)="setTab('momo')">
+      Pay with MoMo
+    </button>
+    <div class="payment__tab-indicator" [class.momo]="activeTab() === 'momo'"></div>
+  </div>
+
+  <!-- Card Form -->
+  @if (activeTab() === 'card') {
+    <div class="payment__form">
+      <h2 class="payment__section-title">Card Details</h2>
+
+      <div class="payment__field">
+        <input type="text" class="payment__input" placeholder="Card Number" [(ngModel)]="cardNumber" maxlength="19">
+        <svg class="payment__input-icon" width="24" height="16" viewBox="0 0 24 16" fill="none">
+          <rect x="0.5" y="0.5" width="23" height="15" rx="2" stroke="#E0E0E0"/>
+          <rect x="2" y="3" width="6" height="4" rx="1" fill="#6B6B6B"/>
+          <line x1="2" y1="10" x2="22" y2="10" stroke="#E0E0E0"/>
+        </svg>
+      </div>
+
+      <div class="payment__row">
+        <div class="payment__field">
+          <input type="text" class="payment__input" placeholder="Expiry (MM/YY)" [(ngModel)]="expiry" maxlength="5">
+        </div>
+        <div class="payment__field">
+          <input type="text" class="payment__input" placeholder="CVV" [(ngModel)]="cvv" maxlength="4">
+        </div>
+      </div>
+
+      <div class="payment__field">
+        <input type="text" class="payment__input" placeholder="Name on Card" [(ngModel)]="nameOnCard">
+      </div>
+
+      <div class="payment__divider"></div>
+
+      <h2 class="payment__section-title">Delivery Details</h2>
+
+      <div class="payment__field">
+        <input type="text" class="payment__input" placeholder="Full Name" [(ngModel)]="fullName">
+      </div>
+      <div class="payment__field">
+        <input type="text" class="payment__input" placeholder="Town / Region" [(ngModel)]="town">
+      </div>
+      <div class="payment__field">
+        <input type="tel" class="payment__input" placeholder="Phone Number" [(ngModel)]="phone">
+      </div>
+    </div>
+  }
+
+  <!-- MoMo Form -->
+  @if (activeTab() === 'momo') {
+    <div class="payment__form">
+      <h2 class="payment__section-title">Mobile Details</h2>
+
+      <div class="payment__field payment__field--select">
+        <select class="payment__input payment__select" [(ngModel)]="momoNetwork">
+          <option value="MTN">MTN</option>
+          <option value="Vodafone">Vodafone</option>
+          <option value="AirtelTigo">AirtelTigo</option>
+        </select>
+        <svg class="payment__input-icon" width="12" height="8" viewBox="0 0 12 8" fill="none">
+          <path d="M1 1.5L6 6.5L11 1.5" stroke="#6B6B6B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <div class="payment__field">
+        <input type="tel" class="payment__input" placeholder="Enter Mobile Number" [(ngModel)]="momoNumber">
+      </div>
+
+      <div class="payment__field">
+        <input type="text" class="payment__input" placeholder="Name" [(ngModel)]="momoName">
+        <span class="payment__helper">Please is this your name?</span>
+      </div>
+
+      <div class="payment__divider"></div>
+
+      <h2 class="payment__section-title">Add Delivery Details</h2>
+
+      <div class="payment__field">
+        <input type="text" class="payment__input" placeholder="Full Name" [(ngModel)]="momoFullName">
+      </div>
+      <div class="payment__field">
+        <input type="text" class="payment__input" placeholder="Town / Region" [(ngModel)]="momoTown">
+      </div>
+      <div class="payment__field">
+        <input type="tel" class="payment__input" placeholder="Phone Number" [(ngModel)]="momoPhone">
+      </div>
+    </div>
+  }
+
+  <!-- Pay Button -->
+  <div class="payment__action">
+    <button class="payment__pay-btn" (click)="payNow()" [disabled]="loading()">
+      @if (loading()) {
+        PROCESSING...
+      } @else {
+        PAY NOW
+      }
+    </button>
+  </div>
+</div>

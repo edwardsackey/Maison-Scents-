@@ -1,0 +1,95 @@
+<app-navbar></app-navbar>
+
+<div class="cart-page">
+  <button class="cart-page__back" (click)="goBack()" aria-label="Go back">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path d="M19 12H5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M12 19L5 12L12 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <div class="cart-page__header">
+    <h1 class="cart-page__title">
+      Your Cart
+      <svg width="24" height="24" viewBox="0 0 20 20" fill="none">
+        <path d="M5 1L1 5V17C1 17.5304 1.21071 18.0391 1.58579 18.4142C1.96086 18.7893 2.46957 19 3 19H17C17.5304 19 18.0391 18.7893 18.4142 18.4142C18.7893 18.0391 19 17.5304 19 17V5L15 1H5Z" stroke="#1A1A1A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M1 5H19" stroke="#1A1A1A" stroke-width="1.2"/>
+        <path d="M14 9C14 11.2091 12.2091 13 10 13C7.79086 13 6 11.2091 6 9" stroke="#1A1A1A" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+    </h1>
+    <p class="cart-page__subtitle">
+      {{ cart.totalItems() }} items
+      <span class="cart-page__dot"></span>
+      Reserved for 30 mins
+    </p>
+  </div>
+
+  <div class="cart-page__divider"></div>
+
+  @if (cart.items().length === 0) {
+    <div class="cart-page__empty">
+      <p>Your cart is empty</p>
+      <button class="cart-page__shop-btn" (click)="goBack()">CONTINUE SHOPPING</button>
+    </div>
+  } @else {
+    <div class="cart-page__items">
+      @for (item of cart.items(); track item.productId + item.size) {
+        <div class="cart-item" [class.removing]="isRemoving(item.productId, item.size)">
+          <div class="cart-item__image-wrap">
+            <img [src]="item.image" [alt]="item.productName" class="cart-item__image">
+          </div>
+
+          <div class="cart-item__details">
+            <span class="cart-item__brand">{{ item.brand }}</span>
+            <h3 class="cart-item__name">{{ item.productName }}</h3>
+            <span class="cart-item__meta">EDP · {{ item.size }}ml</span>
+
+            <div class="cart-item__row">
+              <app-quantity-control
+                [(quantity)]="item.quantity"
+                (quantityChange)="onQuantityChange(item.productId, item.size, $event)">
+              </app-quantity-control>
+
+              <span class="cart-item__price">GHS {{ (item.price * item.quantity).toLocaleString() }}</span>
+            </div>
+
+            <button class="cart-item__remove" (click)="removeItem(item.productId, item.size)">REMOVE</button>
+          </div>
+        </div>
+
+        <div class="cart-page__divider"></div>
+      }
+    </div>
+
+    <!-- Order Summary -->
+    <div class="order-summary">
+      <h2 class="order-summary__title">Order Summary</h2>
+
+      <div class="order-summary__row">
+        <span>Subtotal</span>
+        <span>GHS {{ cart.subtotal().toLocaleString() }}</span>
+      </div>
+      <div class="order-summary__row">
+        <span>Estimated Delivery Date</span>
+        <span>3 - 5 days</span>
+      </div>
+      <div class="order-summary__row">
+        <span>Estimated Delivery Price</span>
+        <span>GHS {{ cart.deliveryFee().toLocaleString() }}</span>
+      </div>
+      <div class="order-summary__row order-summary__row--total">
+        <span>Total</span>
+        <span>GHS {{ cart.total().toLocaleString() }}</span>
+      </div>
+    </div>
+
+    <!-- Checkout -->
+    <div class="cart-page__checkout">
+      <button class="cart-page__checkout-btn" (click)="checkout()">
+        CHECKOUT
+        <span class="cart-page__checkout-dot"></span>
+        GHS {{ cart.total().toLocaleString() }}
+      </button>
+    </div>
+  }
+</div>

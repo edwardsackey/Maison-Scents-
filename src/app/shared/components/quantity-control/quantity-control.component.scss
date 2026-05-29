@@ -1,0 +1,37 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.qty {
+  display: flex;
+  align-items: stretch;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  overflow: hidden;
+
+  &__btn {
+    @include flex-center;
+    width: 44px;
+    min-height: 44px;
+    color: $color-text-primary;
+    transition: background $transition-fast;
+
+    &:hover:not(:disabled) {
+      background: $color-surface;
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+  }
+
+  &__value {
+    @include flex-center;
+    min-width: 44px;
+    font-size: $fs-base;
+    font-weight: $fw-medium;
+    color: $color-text-primary;
+    border-left: 1px solid $color-border;
+    border-right: 1px solid $color-border;
+  }
+}

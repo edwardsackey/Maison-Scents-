@@ -1,0 +1,48 @@
+<div class="auth">
+  <div class="auth__card">
+    <h1 class="auth__brand">MAISON SCENTS</h1>
+    <p class="auth__tagline">Create your account</p>
+
+    <div class="auth__divider"></div>
+
+    <form class="auth__form" (ngSubmit)="onSubmit()">
+      <div class="auth__field">
+        <input type="text"
+               class="auth__input"
+               placeholder="Full Name"
+               [(ngModel)]="name"
+               name="name"
+               required>
+      </div>
+
+      <div class="auth__field">
+        <input type="email"
+               class="auth__input"
+               placeholder="Enter Email"
+               [(ngModel)]="email"
+               name="email"
+               required>
+      </div>
+
+      <div class="auth__field">
+        <input type="password"
+               class="auth__input"
+               placeholder="Password"
+               [(ngModel)]="password"
+               name="password"
+               required>
+      </div>
+
+      <button type="submit"
+              class="auth__submit"
+              [disabled]="loading()">
+        {{ loading() ? 'CREATING...' : 'CREATE ACCOUNT' }}
+      </button>
+    </form>
+
+    <p class="auth__footer">
+      Already have an account?
+      <a routerLink="/auth/sign-in" class="auth__link">Sign In</a>
+    </p>
+  </div>
+</div>

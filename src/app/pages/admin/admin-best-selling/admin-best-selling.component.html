@@ -1,0 +1,36 @@
+<h1 class="page-title">Best Selling</h1>
+
+<div class="table-wrap">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Brand</th>
+        <th>Units Sold</th>
+        <th>Featured</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (p of rankedProducts; track p.id; let i = $index) {
+        <tr>
+          <td class="rank">#{{ i + 1 }}</td>
+          <td>
+            <div class="thumb">
+              <img [src]="p.images[0]" [alt]="p.name">
+            </div>
+          </td>
+          <td class="name-cell">{{ p.name }}</td>
+          <td>{{ p.brand }}</td>
+          <td class="units">{{ p.total_units_sold.toLocaleString() }}</td>
+          <td>
+            <button class="toggle" [class.active]="p.is_featured" (click)="toggleFeatured(p.id)">
+              {{ p.is_featured ? 'Yes' : 'No' }}
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

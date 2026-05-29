@@ -1,0 +1,99 @@
+import { Component, ChangeDetectionStrategy, inject, signal, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
+import { SizeSelectorComponent } from '../../shared/components/size-selector/size-selector.component';
+import { StarRatingComponent } from '../../shared/components/star-rating/star-rating.component';
+import { Product, ProductSize } from '../../core/models/product.model';
+import { ProductService } from '../../core/services/product.service';
+import { CartService } from '../../core/services/cart.service';
+import { WishlistService } from '../../core/services/wishlist.service';
+import { RatingService } from '../../core/services/rating.service';
+
+@Component({
+  selector: 'app-product-detail',
+  standalone: true,
+  imports: [NavbarComponent, SizeSelectorComponent, StarRatingComponent],
+  templateUrl: './product-detail.component.html',
+  styleUrl: './product-detail.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class ProductDetailComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private productService = inject(ProductService);
+  cartService = inject(CartService);
+  wishlist = inject(WishlistService);
+  ratingService = inject(RatingService);
+
+  product = signal<Product | null>(null);
+  selectedSize = signal<number>(0);
+  currentPrice = signal<number>(0);
+  addingToCart = signal(false);
+  showPreOrder = signal(false);
+  menuOpen = signal(false);
+
+  ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.productService.getById(id).subscribe(p => {
+        if (p) {
+          this.product.set(p);
+          this.selectedSize.set(p.sizes[0].ml);
+          this.currentPrice.set(p.sizes[0].price);
+        }
+      });
+    }
+  }
+
+  get isWishlisted(): boolean {
+    const p = this.product();
+    return p ? this.wishlist.isWishlisted(p.id) : false;
+  }
+
+  get avgRating(): number {
+    const p = this.product();
+    return p ? this.ratingService.getAverageRating(p.id) : 0;
+  }
+
+  onSizeChange(size: ProductSize): void {
+    this.selectedSize.set(size.ml);
+    this.currentPrice.set(size.price);
+  }
+
+  toggleWishlist(): void {
+    const p = this.product();
+    if (p) this.wishlist.toggle(p.id);
+  }
+
+  addToCart(): void {
+    const p = this.product();
+    if (!p) return;
+
+    if (p.stock_quantity === 0) {
+      this.showPreOrder.set(true);
+      return;
+    }
+
+    this.addingToCart.set(true);
+    this.cartService.addItem(p, this.selectedSize());
+    setTimeout(() => this.addingToCart.set(false), 300);
+  }
+
+  placePreOrder(): void {
+    const p = this.product();
+    if (!p) return;
+    this.cartService.addItem(p, this.selectedSize(), 'pre_order');
+    this.showPreOrder.set(false);
+    this.router.navigate(['/cart']);
+  }
+
+  cancelPreOrder(): void {
+    this.showPreOrder.set(false);
+  }
+
+  goBack(): void {
+    this.router.navigate(['/storefront'], {
+      queryParams: { gender: this.product()?.gender || 'female' }
+    });
+  }
+}
