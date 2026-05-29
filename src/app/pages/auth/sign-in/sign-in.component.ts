@@ -26,4 +26,13 @@ export class SignInComponent {
       complete: () => this.loading.set(false)
     });
   }
+
+  onSocialLogin(provider: 'google' | 'apple'): void {
+    // Replace with real OAuth flow: Google Sign-In or Apple Sign-In
+    this.loading.set(true);
+    this.auth.signIn(`${provider}@user.com`).subscribe({
+      next: () => this.router.navigate(['/gender-selection']),
+      complete: () => this.loading.set(false)
+    });
+  }
 }
