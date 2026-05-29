@@ -1,0 +1,126 @@
+@if (product(); as p) {
+  <app-navbar (menuToggle)="menuOpen.set(!menuOpen())"></app-navbar>
+
+  <div class="detail">
+    <!-- Back Button -->
+    <button class="detail__back" (click)="goBack()" aria-label="Go back">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <path d="M19 12H5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M12 19L5 12L12 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <!-- Product Image -->
+    <div class="detail__image-wrap">
+      <img [src]="p.images[0]" [alt]="p.name" class="detail__image">
+    </div>
+
+    <!-- Product Info -->
+    <div class="detail__info">
+      <div class="detail__brand-row">
+        <span class="detail__brand">{{ p.brand }}</span>
+        <span class="detail__dot"></span>
+        <span class="detail__tag">SIGNATURE</span>
+      </div>
+
+      <h1 class="detail__name">{{ p.name }}</h1>
+      <p class="detail__desc">{{ p.description }}</p>
+
+      <div class="detail__price">GHS {{ currentPrice().toLocaleString() }}</div>
+
+      <div class="detail__meta">
+        <span>Eau de Parfum</span>
+        <span class="detail__dot"></span>
+        <span>Delivery Nationwide</span>
+      </div>
+
+      <div class="detail__divider"></div>
+
+      <!-- Size Selector -->
+      <app-size-selector
+        [sizes]="p.sizes"
+        [(selected)]="selectedSize"
+        (sizeChange)="onSizeChange($event)">
+      </app-size-selector>
+
+      <div class="detail__divider"></div>
+
+      <!-- Scent Notes -->
+      <h2 class="detail__section-title">The Composition</h2>
+      <div class="detail__notes">
+        <div class="detail__note-col">
+          <span class="detail__note-label">TOP</span>
+          @for (note of p.scent_notes.top; track note) {
+            <span class="detail__note-item">{{ note }}</span>
+          }
+        </div>
+        <div class="detail__note-col">
+          <span class="detail__note-label">HEART</span>
+          @for (note of p.scent_notes.heart; track note) {
+            <span class="detail__note-item">{{ note }}</span>
+          }
+        </div>
+        <div class="detail__note-col">
+          <span class="detail__note-label">BASE</span>
+          @for (note of p.scent_notes.base; track note) {
+            <span class="detail__note-item">{{ note }}</span>
+          }
+        </div>
+      </div>
+
+      <div class="detail__divider"></div>
+
+      <!-- Ratings -->
+      <h2 class="detail__section-title">Ratings</h2>
+      <app-star-rating [rating]="avgRating"></app-star-rating>
+
+      <div class="detail__reviews">
+        @for (r of p.ratings; track r.user) {
+          <div class="detail__review">
+            <div class="detail__review-header">
+              <strong>{{ r.user }}</strong>
+              <app-star-rating [rating]="r.stars"></app-star-rating>
+            </div>
+            <p class="detail__review-text">{{ r.review }}</p>
+          </div>
+        }
+      </div>
+
+      <div class="detail__divider"></div>
+    </div>
+
+    <!-- CTA Area -->
+    <div class="detail__cta" [class.detail__cta--preorder]="showPreOrder()">
+      @if (showPreOrder()) {
+        <div class="detail__preorder">
+          <p class="detail__preorder-text">
+            This fragrance is currently unavailable. We can place a special order — expected delivery in approximately 30 days.
+          </p>
+          <div class="detail__preorder-actions">
+            <button class="detail__preorder-btn detail__preorder-btn--confirm" (click)="placePreOrder()">Place Pre-Order</button>
+            <button class="detail__preorder-btn detail__preorder-btn--cancel" (click)="cancelPreOrder()">Cancel</button>
+          </div>
+        </div>
+      } @else {
+        <button class="detail__wishlist-btn" (click)="toggleWishlist()" aria-label="Toggle wishlist">
+          <svg width="20" height="18" viewBox="0 0 20 18" [attr.fill]="isWishlisted ? '#1A1A1A' : 'none'">
+            <path d="M10 17.5C10 17.5 1 12 1 6C1 3.23858 3.23858 1 6 1C7.74 1 9.26 1.93 10 3.33C10.74 1.93 12.26 1 14 1C16.7614 1 19 3.23858 19 6C19 12 10 17.5 10 17.5Z"
+                  stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
+        <button class="detail__add-btn"
+                [class.pressing]="addingToCart()"
+                (click)="addToCart()">
+          @if (p.stock_quantity === 0) {
+            PRE-ORDER
+          } @else {
+            ADD TO CART
+            <span class="detail__add-dot"></span>
+            GHS {{ currentPrice().toLocaleString() }}
+          }
+        </button>
+      }
+    </div>
+  </div>
+}

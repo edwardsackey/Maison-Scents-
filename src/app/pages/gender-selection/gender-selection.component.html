@@ -1,0 +1,37 @@
+<div class="gender" [class.loaded]="loaded()" [class.transitioning]="transitioning()">
+  <div class="gender__panel gender__panel--her"
+       [class.hovered]="hoveredPanel() === 'her'"
+       [class.shrunk]="hoveredPanel() === 'him'"
+       (mouseenter)="onHover('her')"
+       (mouseleave)="onLeave()"
+       (click)="selectGender('female')">
+    <div class="gender__overlay"></div>
+    <div class="gender__content">
+      <h2 class="gender__title">For Her</h2>
+      <div class="gender__subtitle">
+        <span class="gender__sub-text">EXPLORE COLLECTION</span>
+        <span class="gender__line"></span>
+      </div>
+      <span class="gender__arrow">&#8594;</span>
+    </div>
+  </div>
+
+  <div class="gender__panel gender__panel--him"
+       [class.hovered]="hoveredPanel() === 'him'"
+       [class.shrunk]="hoveredPanel() === 'her'"
+       (mouseenter)="onHover('him')"
+       (mouseleave)="onLeave()"
+       (click)="selectGender('male')">
+    <div class="gender__overlay"></div>
+    <div class="gender__content">
+      <h2 class="gender__title">For Him</h2>
+      <div class="gender__subtitle">
+        <span class="gender__sub-text">EXPLORE COLLECTION</span>
+        <span class="gender__line"></span>
+      </div>
+      <span class="gender__arrow">&#8594;</span>
+    </div>
+  </div>
+
+  <div class="gender__transition-overlay"></div>
+</div>

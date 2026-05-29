@@ -1,0 +1,402 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// Hero
+.hero {
+  padding: $space-lg $space-md $space-md;
+  position: relative;
+
+  &__back {
+    @include touch-target;
+    @include flex-center;
+    margin-bottom: $space-md;
+  }
+
+  &__content {
+    text-align: center;
+    margin-bottom: $space-lg;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $fs-3xl;
+    font-weight: $fw-regular;
+    color: $color-text-primary;
+    margin-bottom: $space-md;
+    font-style: italic;
+
+    @include respond-to(tablet) {
+      font-size: $fs-4xl;
+    }
+  }
+
+  &__label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $space-sm;
+    margin-bottom: $space-sm;
+  }
+
+  &__line {
+    width: 40px;
+    height: 1px;
+    background: $color-text-secondary;
+  }
+
+  &__label-text {
+    font-size: $fs-xs;
+    font-weight: $fw-medium;
+    letter-spacing: $ls-widest;
+    color: $color-text-secondary;
+    text-transform: uppercase;
+  }
+
+  &__tagline {
+    font-size: $fs-sm;
+    color: $color-text-secondary;
+    font-style: italic;
+  }
+
+  &__divider {
+    height: 1px;
+    background: $color-border;
+  }
+}
+
+// Filter Bar
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  padding: $space-md;
+  position: sticky;
+  top: 56px;
+  z-index: $z-sticky - 1;
+  background: $color-bg;
+  border-bottom: 1px solid $color-border;
+
+  &__btn {
+    @include flex-center;
+    gap: $space-xs;
+    padding: $space-sm $space-md;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    font-size: $fs-sm;
+    font-weight: $fw-medium;
+    color: $color-text-primary;
+    white-space: nowrap;
+    min-height: 36px;
+  }
+
+  &__chip {
+    padding: $space-xs $space-md;
+    border-radius: $radius-xl;
+    font-size: $fs-sm;
+    font-weight: $fw-medium;
+    color: $color-text-secondary;
+    white-space: nowrap;
+
+    &.active {
+      background: $color-cta;
+      color: $color-cta-text;
+    }
+  }
+
+  &__search {
+    display: flex;
+    align-items: center;
+    gap: $space-xs;
+    flex: 1;
+    min-width: 0;
+    padding: $space-sm $space-md;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    min-height: 36px;
+
+    input {
+      flex: 1;
+      min-width: 0;
+      font-size: $fs-sm;
+      color: $color-text-primary;
+      background: transparent;
+
+      &::placeholder {
+        color: $color-text-secondary;
+      }
+    }
+  }
+}
+
+// Product Grid
+.products {
+  padding: $space-md;
+  min-height: 400px;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $space-md;
+
+    @include respond-to(tablet) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include respond-to(desktop) {
+      grid-template-columns: repeat(4, 1fr);
+      gap: $space-lg;
+    }
+  }
+
+  &__empty {
+    text-align: center;
+    padding: $space-3xl $space-md;
+    color: $color-text-secondary;
+
+    p {
+      margin-bottom: $space-md;
+    }
+  }
+
+  &__reset {
+    padding: $space-sm $space-lg;
+    background: $color-cta;
+    color: $color-cta-text;
+    font-size: $fs-sm;
+    font-weight: $fw-medium;
+    letter-spacing: $ls-wide;
+    border-radius: $radius-sm;
+  }
+}
+
+// Drawer Backdrop
+.drawer-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: $z-overlay;
+  animation: fade-in 300ms ease;
+}
+
+// Filter Drawer
+.filter-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 85%;
+  max-width: 360px;
+  height: 100%;
+  background: $color-bg;
+  z-index: $z-drawer;
+  padding: $space-md;
+  overflow-y: auto;
+  animation: slide-left 300ms ease;
+  display: flex;
+  flex-direction: column;
+
+  &__pill {
+    width: 40px;
+    height: 4px;
+    border-radius: 2px;
+    background: $color-border;
+    margin: 0 auto $space-lg;
+  }
+
+  &__header {
+    @include flex-between;
+    margin-bottom: $space-xl;
+  }
+
+  &__title {
+    font-size: $fs-md;
+    font-weight: $fw-semibold;
+    letter-spacing: $ls-wider;
+  }
+
+  &__clear {
+    font-size: $fs-sm;
+    color: $color-text-secondary;
+    font-weight: $fw-medium;
+    letter-spacing: $ls-wide;
+  }
+
+  &__section {
+    margin-bottom: $space-xl;
+  }
+
+  &__section-title {
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    letter-spacing: $ls-widest;
+    color: $color-text-secondary;
+    margin-bottom: $space-md;
+    font-family: $font-body;
+  }
+
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-sm;
+  }
+
+  &__chip {
+    padding: $space-sm $space-md;
+    border: 1px solid $color-border;
+    border-radius: $radius-xl;
+    font-size: $fs-sm;
+    color: $color-text-primary;
+    transition: all $transition-fast;
+
+    &.active {
+      background: $color-cta;
+      color: $color-cta-text;
+      border-color: $color-cta;
+    }
+  }
+
+  &__brands {
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+  }
+
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+    cursor: pointer;
+    font-size: $fs-base;
+
+    input[type="checkbox"] {
+      display: none;
+    }
+  }
+
+  &__checkbox {
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid $color-border;
+    border-radius: $radius-sm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all $transition-fast;
+
+    input:checked + & {
+      background: $color-cta;
+      border-color: $color-cta;
+
+      &::after {
+        content: '';
+        width: 10px;
+        height: 6px;
+        border-left: 2px solid white;
+        border-bottom: 2px solid white;
+        transform: rotate(-45deg) translateY(-1px);
+      }
+    }
+  }
+
+  &__brand-name {
+    flex: 1;
+    color: $color-text-primary;
+  }
+
+  &__brand-count {
+    color: $color-text-secondary;
+    font-size: $fs-sm;
+  }
+
+  &__actions {
+    margin-top: auto;
+    display: flex;
+    gap: $space-sm;
+    padding-top: $space-lg;
+  }
+
+  &__reset {
+    flex: 1;
+    padding: $space-md;
+    border: 1px solid $color-border;
+    font-size: $fs-sm;
+    font-weight: $fw-semibold;
+    letter-spacing: $ls-wider;
+    min-height: 48px;
+  }
+
+  &__apply {
+    flex: 2;
+    padding: $space-md;
+    background: $color-cta;
+    color: $color-cta-text;
+    font-size: $fs-sm;
+    font-weight: $fw-semibold;
+    letter-spacing: $ls-wider;
+    min-height: 48px;
+  }
+}
+
+// Hamburger Menu
+.menu-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 80%;
+  max-width: 320px;
+  height: 100%;
+  background: $color-bg;
+  z-index: $z-drawer;
+  padding: $space-xl $space-md;
+  animation: slide-right 300ms ease;
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $fs-xl;
+    font-weight: $fw-regular;
+    color: $color-text-primary;
+    margin-bottom: $space-xl;
+  }
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__item {
+    @include flex-between;
+    padding: $space-md 0;
+    font-size: $fs-base;
+    color: $color-text-primary;
+    width: 100%;
+    text-align: left;
+    @include touch-target;
+
+    &--signout {
+      color: $color-text-secondary;
+    }
+  }
+
+  &__divider {
+    height: 1px;
+    background: $color-border;
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-left {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes slide-right {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}

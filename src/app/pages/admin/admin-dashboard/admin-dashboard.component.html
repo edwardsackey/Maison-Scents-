@@ -1,0 +1,49 @@
+<h1 class="page-title">Dashboard</h1>
+
+<div class="stats">
+  <div class="stat-card">
+    <span class="stat-card__value">{{ totalProducts }}</span>
+    <span class="stat-card__label">Total Products</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-card__value">{{ totalOrders }}</span>
+    <span class="stat-card__label">Total Orders</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-card__value">{{ outOfStock }}</span>
+    <span class="stat-card__label">Out of Stock</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-card__value">{{ preOrdersPending }}</span>
+    <span class="stat-card__label">Pre-orders Pending</span>
+  </div>
+</div>
+
+<h2 class="section-title">Recent Orders</h2>
+
+<div class="table-wrap">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Customer</th>
+        <th>Items</th>
+        <th>Total</th>
+        <th>Status</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (order of recentOrders; track order.id) {
+        <tr>
+          <td class="table__id">{{ order.id }}</td>
+          <td>{{ order.customer }}</td>
+          <td>{{ order.items.length }} item(s)</td>
+          <td>GHS {{ order.total.toLocaleString() }}</td>
+          <td><span class="status" [ngClass]="getStatusClass(order.status)">{{ order.status }}</span></td>
+          <td>{{ order.date }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

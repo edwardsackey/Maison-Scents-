@@ -1,0 +1,37 @@
+<h1 class="page-title">Orders</h1>
+
+<div class="table-wrap">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Customer</th>
+        <th>Items</th>
+        <th>Total</th>
+        <th>Status</th>
+        <th>Payment</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (order of orderService.orders(); track order.id) {
+        <tr>
+          <td class="table__id">{{ order.id }}</td>
+          <td>{{ order.customer }}</td>
+          <td class="items-cell">{{ getItemsSummary(order.items) }}</td>
+          <td>GHS {{ order.total.toLocaleString() }}</td>
+          <td>
+            <select class="status-select" [ngClass]="getStatusClass(order.status)"
+                    [value]="order.status" (change)="updateStatus(order.id, $event)">
+              @for (s of statuses; track s) {
+                <option [value]="s">{{ s }}</option>
+              }
+            </select>
+          </td>
+          <td class="capitalize">{{ order.paymentMethod }}</td>
+          <td>{{ order.date }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

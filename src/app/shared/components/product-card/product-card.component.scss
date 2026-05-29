@@ -1,0 +1,125 @@
+@use 'variables' as *;
+
+.card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  animation: card-enter 400ms ease both;
+  transition: transform $transition-base;
+
+  &:hover {
+    transform: translateY(-4px);
+
+    .card__image {
+      transform: scale(1.04);
+    }
+  }
+
+  &__image-wrap {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: $radius-lg;
+    overflow: hidden;
+    background: $color-surface;
+    margin-bottom: $space-sm;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform $transition-slow;
+  }
+
+  &__badge {
+    position: absolute;
+    top: $space-sm;
+    left: $space-sm;
+    background: $color-badge-bg;
+    color: $color-badge-text;
+    font-family: $font-body;
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    letter-spacing: $ls-wide;
+    padding: 3px 8px;
+    border-radius: $radius-sm;
+    text-transform: uppercase;
+  }
+
+  &__wishlist {
+    position: absolute;
+    top: $space-sm;
+    right: $space-sm;
+    width: 32px;
+    height: 32px;
+    border-radius: $radius-round;
+    background: $color-bg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: $shadow-sm;
+    transition: transform $transition-fast;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  &__info {
+    padding: 0 $space-xs;
+  }
+
+  &__brand {
+    font-size: $fs-xs;
+    font-weight: $fw-medium;
+    color: $color-text-secondary;
+    text-transform: uppercase;
+    letter-spacing: $ls-wide;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  &__name {
+    font-family: $font-heading;
+    font-size: $fs-md;
+    font-weight: $fw-regular;
+    color: $color-text-primary;
+    margin-bottom: $space-xs;
+    line-height: $lh-tight;
+  }
+
+  &__price-row {
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+    font-size: $fs-sm;
+  }
+
+  &__size {
+    color: $color-text-secondary;
+  }
+
+  &__dot {
+    width: 3px;
+    height: 3px;
+    border-radius: $radius-round;
+    background: $color-text-secondary;
+    flex-shrink: 0;
+  }
+
+  &__price {
+    font-weight: $fw-semibold;
+    color: $color-price;
+  }
+}
+
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,107 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.auth {
+  min-height: 100vh;
+  @include flex-center;
+  padding: $space-md;
+  background: $color-bg;
+
+  &__card {
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+
+  &__brand {
+    font-family: $font-heading;
+    font-size: $fs-2xl;
+    font-weight: $fw-regular;
+    letter-spacing: $ls-widest;
+    color: $color-text-primary;
+    margin-bottom: $space-md;
+
+    @include respond-to(tablet) {
+      font-size: $fs-3xl;
+    }
+  }
+
+  &__tagline {
+    font-size: $fs-sm;
+    color: $color-text-secondary;
+    margin-bottom: $space-lg;
+  }
+
+  &__divider {
+    height: 1px;
+    background: $color-border;
+    margin-bottom: $space-xl;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+  }
+
+  &__field {
+    width: 100%;
+  }
+
+  &__input {
+    width: 100%;
+    padding: $space-md;
+    border: 1px solid $color-border;
+    font-size: $fs-base;
+    color: $color-text-primary;
+    background: $color-bg;
+    transition: border-color $transition-fast;
+    min-height: 48px;
+
+    &::placeholder {
+      color: $color-text-secondary;
+    }
+
+    &:focus {
+      border-color: $color-text-primary;
+    }
+  }
+
+  &__submit {
+    width: 100%;
+    padding: $space-md;
+    background: $color-cta;
+    color: $color-cta-text;
+    font-size: $fs-base;
+    font-weight: $fw-semibold;
+    letter-spacing: $ls-wider;
+    text-transform: uppercase;
+    min-height: 48px;
+    transition: opacity $transition-fast;
+
+    &:hover {
+      opacity: 0.9;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+
+  &__footer {
+    margin-top: $space-xl;
+    font-size: $fs-sm;
+    color: $color-text-secondary;
+  }
+
+  &__link {
+    color: $color-text-primary;
+    font-weight: $fw-semibold;
+    text-decoration: underline;
+  }
+}

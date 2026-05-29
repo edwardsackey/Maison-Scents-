@@ -1,0 +1,65 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.footer {
+  padding: $space-2xl $space-md $space-lg;
+  text-align: center;
+  background: $color-bg;
+
+  &__brand {
+    font-family: $font-heading;
+    font-size: $fs-lg;
+    font-weight: $fw-medium;
+    letter-spacing: $ls-wider;
+    color: $color-text-primary;
+    margin-bottom: $space-md;
+  }
+
+  &__tagline {
+    font-family: $font-heading;
+    font-size: $fs-sm;
+    font-style: italic;
+    color: $color-text-secondary;
+    max-width: 320px;
+    margin: 0 auto $space-lg;
+    line-height: $lh-relaxed;
+  }
+
+  &__links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $space-sm;
+    flex-wrap: wrap;
+    margin-bottom: $space-lg;
+
+    a {
+      font-size: $fs-sm;
+      color: $color-text-secondary;
+      transition: color $transition-fast;
+
+      &:hover {
+        color: $color-text-primary;
+      }
+    }
+  }
+
+  &__dot {
+    width: 3px;
+    height: 3px;
+    border-radius: $radius-round;
+    background: $color-text-secondary;
+  }
+
+  &__divider {
+    height: 1px;
+    background: $color-border;
+    margin-bottom: $space-md;
+  }
+
+  &__copy {
+    font-size: $fs-xs;
+    color: $color-text-secondary;
+    letter-spacing: $ls-wide;
+  }
+}

@@ -1,0 +1,48 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-md;
+
+  @include respond-to(tablet) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include respond-to(desktop) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.skeleton-card {
+  &__image {
+    aspect-ratio: 1;
+    border-radius: $radius-lg;
+    @include skeleton-pulse;
+  }
+
+  &__brand {
+    height: 10px;
+    width: 60%;
+    border-radius: $radius-sm;
+    margin-top: $space-sm;
+    @include skeleton-pulse;
+  }
+
+  &__name {
+    height: 14px;
+    width: 80%;
+    border-radius: $radius-sm;
+    margin-top: $space-xs;
+    @include skeleton-pulse;
+  }
+
+  &__price {
+    height: 12px;
+    width: 50%;
+    border-radius: $radius-sm;
+    margin-top: $space-xs;
+    @include skeleton-pulse;
+  }
+}

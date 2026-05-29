@@ -1,0 +1,44 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.page-title {
+  font-family: $font-heading;
+  font-size: $fs-2xl;
+  font-weight: $fw-regular;
+  margin-bottom: $space-lg;
+}
+
+.table-wrap { overflow-x: auto; border: 1px solid $color-border; border-radius: $radius-lg; }
+
+.table {
+  width: 100%; border-collapse: collapse; font-size: $fs-sm;
+  th, td { padding: $space-md; text-align: left; white-space: nowrap; }
+  th {
+    font-weight: $fw-semibold; color: $color-text-secondary;
+    font-size: $fs-xs; text-transform: uppercase; letter-spacing: $ls-wide;
+    border-bottom: 1px solid $color-border; background: $color-surface;
+  }
+  td { border-bottom: 1px solid $color-border; }
+  tbody tr:last-child td { border-bottom: none; }
+  &__id { font-weight: $fw-semibold; }
+}
+
+.items-cell { max-width: 200px; overflow: hidden; text-overflow: ellipsis; }
+.capitalize { text-transform: uppercase; font-size: $fs-xs; letter-spacing: $ls-wide; font-weight: $fw-semibold; }
+
+.status-select {
+  padding: $space-xs $space-sm;
+  border-radius: $radius-xl;
+  font-size: $fs-xs;
+  font-weight: $fw-semibold;
+  border: none;
+  cursor: pointer;
+  text-transform: capitalize;
+  appearance: auto;
+
+  &.status--pending { background: rgba($color-status-pending, 0.15); color: $color-status-pending; }
+  &.status--processing { background: rgba($color-status-processing, 0.15); color: $color-status-processing; }
+  &.status--shipped { background: rgba($color-status-shipped, 0.15); color: $color-status-shipped; }
+  &.status--delivered { background: rgba($color-status-delivered, 0.15); color: $color-status-delivered; }
+  &.status--pre_order { background: rgba($color-status-preorder, 0.15); color: $color-status-preorder; }
+}

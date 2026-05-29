@@ -1,0 +1,117 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.header {
+  @include flex-between;
+  margin-bottom: $space-lg;
+  flex-wrap: wrap;
+  gap: $space-md;
+}
+
+.page-title {
+  font-family: $font-heading;
+  font-size: $fs-2xl;
+  font-weight: $fw-regular;
+}
+
+.add-btn {
+  padding: $space-sm $space-lg;
+  background: $color-cta;
+  color: $color-cta-text;
+  font-size: $fs-sm;
+  font-weight: $fw-semibold;
+  border-radius: $radius-md;
+}
+
+.table-wrap { overflow-x: auto; border: 1px solid $color-border; border-radius: $radius-lg; }
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $fs-sm;
+
+  th, td { padding: $space-md; text-align: left; white-space: nowrap; }
+  th {
+    font-weight: $fw-semibold; color: $color-text-secondary;
+    font-size: $fs-xs; text-transform: uppercase; letter-spacing: $ls-wide;
+    border-bottom: 1px solid $color-border; background: $color-surface;
+  }
+  td { border-bottom: 1px solid $color-border; }
+  tbody tr:last-child td { border-bottom: none; }
+}
+
+.thumb {
+  width: 40px; height: 40px; border-radius: $radius-md;
+  overflow: hidden; background: $color-surface;
+  img { width: 100%; height: 100%; object-fit: cover; }
+}
+
+.name-cell { font-weight: $fw-semibold; }
+.capitalize { text-transform: capitalize; }
+.out-of-stock { color: $color-error; font-weight: $fw-semibold; }
+
+.toggle {
+  padding: 2px $space-sm; border-radius: $radius-xl;
+  font-size: $fs-xs; font-weight: $fw-semibold;
+  border: 1px solid $color-border; color: $color-text-secondary;
+  &.active { background: $color-cta; color: $color-cta-text; border-color: $color-cta; }
+}
+
+.actions { display: flex; gap: $space-sm; }
+.action-btn {
+  font-size: $fs-xs; font-weight: $fw-semibold;
+  color: $color-text-secondary; padding: $space-xs $space-sm;
+  border: 1px solid $color-border; border-radius: $radius-sm;
+  &:hover { color: $color-text-primary; border-color: $color-text-primary; }
+  &--danger:hover { color: $color-error; border-color: $color-error; }
+}
+
+.form-backdrop {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5); z-index: $z-overlay;
+}
+
+.form-panel {
+  position: fixed; top: 0; right: 0; width: 90%; max-width: 480px;
+  height: 100%; background: $color-bg; z-index: $z-drawer;
+  overflow-y: auto; animation: slide-in 300ms ease;
+
+  &__header {
+    @include flex-between; padding: $space-lg;
+    border-bottom: 1px solid $color-border;
+    h2 { font-family: $font-heading; font-size: $fs-xl; font-weight: $fw-regular; }
+    button { font-size: $fs-2xl; line-height: 1; color: $color-text-secondary; }
+  }
+
+  &__body { padding: $space-lg; }
+}
+
+.field {
+  display: flex; flex-direction: column; gap: $space-xs; margin-bottom: $space-md;
+  span { font-size: $fs-xs; font-weight: $fw-semibold; color: $color-text-secondary;
+    text-transform: uppercase; letter-spacing: $ls-wide; }
+  input, select, textarea {
+    padding: $space-sm $space-md; border: 1px solid $color-border;
+    border-radius: $radius-sm; font-size: $fs-base; min-height: 40px;
+    &:focus { border-color: $color-text-primary; outline: none; }
+  }
+  textarea { resize: vertical; font-family: $font-body; }
+}
+
+.field-row { display: flex; gap: $space-md; .field { flex: 1; } }
+.check {
+  display: flex; align-items: center; gap: $space-sm;
+  font-size: $fs-sm; cursor: pointer; padding: $space-sm 0;
+  input { width: 16px; height: 16px; }
+}
+
+.save-btn {
+  width: 100%; padding: $space-md; background: $color-cta;
+  color: $color-cta-text; font-weight: $fw-semibold; letter-spacing: $ls-wider;
+  font-size: $fs-base; margin-top: $space-md; min-height: 48px;
+}
+
+@keyframes slide-in {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}

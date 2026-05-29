@@ -1,0 +1,198 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.payment {
+  padding: $space-md;
+  padding-bottom: 100px;
+  max-width: 500px;
+  margin: 0 auto;
+
+  &__back {
+    @include touch-target;
+    @include flex-center;
+    margin-bottom: $space-md;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $fs-2xl;
+    font-weight: $fw-regular;
+    color: $color-text-primary;
+    margin-bottom: $space-lg;
+  }
+
+  &__label {
+    font-size: $fs-sm;
+    color: $color-text-secondary;
+    margin-bottom: $space-md;
+  }
+
+  // Tabs
+  &__tabs {
+    display: flex;
+    position: relative;
+    background: $color-surface;
+    border-radius: $radius-md;
+    padding: 3px;
+    margin-bottom: $space-xl;
+  }
+
+  &__tab {
+    flex: 1;
+    padding: $space-sm $space-md;
+    font-size: $fs-sm;
+    font-weight: $fw-medium;
+    color: $color-text-secondary;
+    text-align: center;
+    z-index: 1;
+    position: relative;
+    min-height: 40px;
+    transition: color $transition-fast;
+
+    &.active {
+      color: $color-cta-text;
+    }
+  }
+
+  &__tab-indicator {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: calc(50% - 3px);
+    height: calc(100% - 6px);
+    background: $color-cta;
+    border-radius: $radius-md - 1px;
+    transition: transform $transition-slow;
+
+    &.momo {
+      transform: translateX(100%);
+    }
+  }
+
+  // Form
+  &__form {
+    animation: fade-in 200ms ease;
+  }
+
+  &__section-title {
+    font-family: $font-heading;
+    font-size: $fs-lg;
+    font-weight: $fw-regular;
+    color: $color-text-primary;
+    margin-bottom: $space-md;
+  }
+
+  &__field {
+    position: relative;
+    margin-bottom: $space-md;
+
+    &--select {
+      .payment__input-icon {
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+  }
+
+  &__input {
+    width: 100%;
+    padding: $space-md;
+    border: 1px solid $color-border;
+    border-radius: $radius-sm;
+    font-size: $fs-base;
+    color: $color-text-primary;
+    background: $color-bg;
+    min-height: 48px;
+    transition: border-color $transition-fast;
+
+    &::placeholder {
+      color: $color-text-secondary;
+    }
+
+    &:focus {
+      border-color: $color-text-primary;
+    }
+  }
+
+  &__select {
+    appearance: none;
+    padding-right: $space-xl;
+    cursor: pointer;
+  }
+
+  &__input-icon {
+    position: absolute;
+    right: $space-md;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  &__helper {
+    font-size: $fs-xs;
+    color: $color-text-secondary;
+    margin-top: $space-xs;
+    display: block;
+  }
+
+  &__row {
+    display: flex;
+    gap: $space-md;
+
+    .payment__field {
+      flex: 1;
+    }
+  }
+
+  &__divider {
+    height: 1px;
+    background: $color-border;
+    margin: $space-lg 0;
+  }
+
+  // Pay Button
+  &__action {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: $space-md;
+    background: $color-bg;
+    border-top: 1px solid $color-border;
+    z-index: $z-sticky;
+  }
+
+  &__pay-btn {
+    width: 100%;
+    padding: $space-md;
+    background: $color-cta;
+    color: $color-cta-text;
+    font-size: $fs-base;
+    font-weight: $fw-semibold;
+    letter-spacing: $ls-wider;
+    text-transform: uppercase;
+    min-height: 52px;
+    max-width: 500px;
+    margin: 0 auto;
+    display: block;
+    transition: opacity $transition-fast;
+
+    &:hover {
+      opacity: 0.9;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

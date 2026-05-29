@@ -1,0 +1,68 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.navbar {
+  @include flex-between;
+  position: sticky;
+  top: 0;
+  z-index: $z-sticky;
+  background: $color-bg;
+  padding: $space-md;
+  border-bottom: 1px solid $color-border;
+  height: 56px;
+
+  &__menu {
+    @include touch-target;
+    @include flex-center;
+    padding: $space-sm;
+  }
+
+  &__brand {
+    font-family: $font-heading;
+    font-size: $fs-lg;
+    font-weight: $fw-medium;
+    letter-spacing: $ls-wider;
+    color: $color-text-primary;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: $space-md;
+  }
+
+  &__icon {
+    @include touch-target;
+    @include flex-center;
+    position: relative;
+  }
+
+  &__cart.bounce {
+    animation: cart-bounce 400ms ease;
+  }
+
+  &__badge {
+    position: absolute;
+    top: 0;
+    right: -2px;
+    background: $color-badge-bg;
+    color: $color-badge-text;
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    width: 18px;
+    height: 18px;
+    border-radius: $radius-round;
+    @include flex-center;
+    line-height: 1;
+  }
+}
+
+@keyframes cart-bounce {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.2); }
+  50% { transform: scale(0.9); }
+  75% { transform: scale(1.1); }
+}

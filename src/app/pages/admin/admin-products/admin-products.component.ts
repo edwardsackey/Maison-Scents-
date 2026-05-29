@@ -1,0 +1,109 @@
+import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Product } from '../../../core/models/product.model';
+import { ProductService } from '../../../core/services/product.service';
+
+@Component({
+  selector: 'app-admin-products',
+  standalone: true,
+  imports: [FormsModule],
+  templateUrl: './admin-products.component.html',
+  styleUrl: './admin-products.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class AdminProductsComponent {
+  productService = inject(ProductService);
+  showForm = signal(false);
+  editingProduct = signal<Product | null>(null);
+
+  form = {
+    name: '', brand: '', gender: 'female' as 'male' | 'female' | 'unisex',
+    scent_family: '', description: '',
+    top_notes: '', heart_notes: '', base_notes: '',
+    size30: 0, size50: 0, size100: 0,
+    stock_quantity: 0, delivery_days: 3,
+    is_new: false, is_featured: false, image: ''
+  };
+
+  openAddForm(): void {
+    this.editingProduct.set(null);
+    this.resetForm();
+    this.showForm.set(true);
+  }
+
+  editProduct(p: Product): void {
+    this.editingProduct.set(p);
+    this.form = {
+      name: p.name, brand: p.brand, gender: p.gender,
+      scent_family: p.scent_family, description: p.description,
+      top_notes: p.scent_notes.top.join(', '),
+      heart_notes: p.scent_notes.heart.join(', '),
+      base_notes: p.scent_notes.base.join(', '),
+      size30: p.sizes[0]?.price || 0,
+      size50: p.sizes[1]?.price || 0,
+      size100: p.sizes[2]?.price || 0,
+      stock_quantity: p.stock_quantity, delivery_days: p.delivery_days,
+      is_new: p.is_new, is_featured: p.is_featured,
+      image: p.images[0] || ''
+    };
+    this.showForm.set(true);
+  }
+
+  saveProduct(): void {
+    const data: Product = {
+      id: this.editingProduct()?.id || 'p' + Date.now(),
+      name: this.form.name, brand: this.form.brand,
+      gender: this.form.gender, scent_family: this.form.scent_family,
+      description: this.form.description,
+      images: [this.form.image || 'assets/images/Khamarah.jpg'],
+      sizes: [
+        { ml: 30, price: this.form.size30 },
+        { ml: 50, price: this.form.size50 },
+        { ml: 100, price: this.form.size100 }
+      ],
+      stock_quantity: this.form.stock_quantity,
+      is_featured: this.form.is_featured,
+      total_units_sold: this.editingProduct()?.total_units_sold || 0,
+      delivery_days: this.form.delivery_days,
+      is_new: this.form.is_new,
+      scent_notes: {
+        top: this.form.top_notes.split(',').map(s => s.trim()).filter(Boolean),
+        heart: this.form.heart_notes.split(',').map(s => s.trim()).filter(Boolean),
+        base: this.form.base_notes.split(',').map(s => s.trim()).filter(Boolean)
+      },
+      ratings: this.editingProduct()?.ratings || []
+    };
+
+    if (this.editingProduct()) {
+      // Replace with: this.productService.update(id, data).subscribe()
+      this.productService.updateProduct(data.id, data);
+    } else {
+      // Replace with: this.productService.create(data).subscribe()
+      this.productService.addProduct(data);
+    }
+
+    this.showForm.set(false);
+  }
+
+  deleteProduct(id: string): void {
+    // Replace with: this.productService.delete(id).subscribe()
+    this.productService.deleteProduct(id);
+  }
+
+  getPriceRange(p: Product): string {
+    const min = Math.min(...p.sizes.map(s => s.price));
+    const max = Math.max(...p.sizes.map(s => s.price));
+    return `GHS ${min} - ${max}`;
+  }
+
+  private resetForm(): void {
+    this.form = {
+      name: '', brand: '', gender: 'female',
+      scent_family: '', description: '',
+      top_notes: '', heart_notes: '', base_notes: '',
+      size30: 0, size50: 0, size100: 0,
+      stock_quantity: 0, delivery_days: 3,
+      is_new: false, is_featured: false, image: ''
+    };
+  }
+}

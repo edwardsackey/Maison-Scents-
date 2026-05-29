@@ -1,0 +1,169 @@
+<app-navbar (menuToggle)="toggleMenu()"></app-navbar>
+
+<!-- Hero Section -->
+<section class="hero">
+  <button class="hero__back" (click)="goBack()" aria-label="Go back">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path d="M19 12H5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M12 19L5 12L12 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <div class="hero__content">
+    <h1 class="hero__title">{{ genderLabel }}</h1>
+    <div class="hero__label">
+      <span class="hero__line"></span>
+      <span class="hero__label-text">THE COLLECTION</span>
+    </div>
+    <p class="hero__tagline">Compositions chosen from softness and quiet drama</p>
+  </div>
+
+  <div class="hero__divider"></div>
+</section>
+
+<!-- Filter Bar -->
+<div class="filter-bar">
+  <button class="filter-bar__btn" (click)="toggleFilter()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <path d="M4 6H20" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M7 12H17" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M10 18H14" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <span>Filter</span>
+  </button>
+
+  <span class="filter-bar__chip active">ALL</span>
+
+  <div class="filter-bar__search">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <circle cx="11" cy="11" r="8" stroke="#6B6B6B" stroke-width="1.5"/>
+      <path d="M21 21L16.65 16.65" stroke="#6B6B6B" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <input type="text" placeholder="Search" [value]="searchQuery()" (input)="onSearch($event)">
+  </div>
+</div>
+
+<!-- Product Grid -->
+<section class="products">
+  @if (loading()) {
+    <app-skeleton-loader [count]="6"></app-skeleton-loader>
+  } @else {
+    <div class="products__grid">
+      @for (product of products; track product.id; let i = $index) {
+        <app-product-card [product]="product" [animationDelay]="i * 60"></app-product-card>
+      }
+    </div>
+
+    @if (products.length === 0) {
+      <div class="products__empty">
+        <p>No fragrances match your filters.</p>
+        <button class="products__reset" (click)="clearFilters()">Clear Filters</button>
+      </div>
+    }
+  }
+</section>
+
+<app-footer></app-footer>
+
+<!-- Filter Drawer -->
+@if (filterOpen()) {
+  <div class="drawer-backdrop" (click)="toggleFilter()"></div>
+  <aside class="filter-drawer">
+    <div class="filter-drawer__pill"></div>
+
+    <div class="filter-drawer__header">
+      <h2 class="filter-drawer__title">FILTER</h2>
+      <button class="filter-drawer__clear" (click)="clearFilters()">CLEAR ALL</button>
+    </div>
+
+    <div class="filter-drawer__section">
+      <h3 class="filter-drawer__section-title">FAMILY</h3>
+      <div class="filter-drawer__chips">
+        @for (family of scentFamilies; track family) {
+          <button class="filter-drawer__chip"
+                  [class.active]="isFamilySelected(family)"
+                  (click)="toggleFamily(family)">
+            {{ family }}
+          </button>
+        }
+        <button class="filter-drawer__chip"
+                [class.active]="filterService.sortBy() === 'best-selling'"
+                (click)="filterService.sortBy.set(filterService.sortBy() === 'best-selling' ? 'default' : 'best-selling')">
+          Best Selling
+        </button>
+      </div>
+    </div>
+
+    <div class="filter-drawer__section">
+      <h3 class="filter-drawer__section-title">BRAND</h3>
+      <div class="filter-drawer__brands">
+        @for (brand of brands; track brand.name) {
+          <label class="filter-drawer__brand">
+            <input type="checkbox"
+                   [checked]="isBrandSelected(brand.name)"
+                   (change)="toggleBrand(brand.name)">
+            <span class="filter-drawer__checkbox"></span>
+            <span class="filter-drawer__brand-name">{{ brand.name }}</span>
+            <span class="filter-drawer__brand-count">({{ brand.count }})</span>
+          </label>
+        }
+      </div>
+    </div>
+
+    <div class="filter-drawer__actions">
+      <button class="filter-drawer__reset" (click)="clearFilters()">RESET</button>
+      <button class="filter-drawer__apply" (click)="applyFilters()">
+        SHOW {{ filterService.resultCount() }} RESULTS
+      </button>
+    </div>
+  </aside>
+}
+
+<!-- Hamburger Menu -->
+@if (menuOpen()) {
+  <div class="drawer-backdrop" (click)="toggleMenu()"></div>
+  <aside class="menu-drawer">
+    <h2 class="menu-drawer__title">Account</h2>
+
+    <nav class="menu-drawer__nav">
+      <a class="menu-drawer__item" routerLink="/cart">
+        <span>My Orders</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <path d="M9 18L15 12L9 6" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <div class="menu-drawer__divider"></div>
+
+      <a class="menu-drawer__item" href="#">
+        <span>Location</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <path d="M9 18L15 12L9 6" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <div class="menu-drawer__divider"></div>
+
+      <a class="menu-drawer__item" routerLink="/storefront">
+        <span>Signature Perfumes</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <path d="M9 18L15 12L9 6" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <div class="menu-drawer__divider"></div>
+
+      <button class="menu-drawer__item" (click)="enableAdmin()">
+        <span>Admin</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <path d="M9 18L15 12L9 6" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="menu-drawer__divider"></div>
+
+      <button class="menu-drawer__item menu-drawer__item--signout" (click)="signOut()">
+        <span>Sign Out</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <path d="M9 18L15 12L9 6" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </nav>
+  </aside>
+}

@@ -1,0 +1,30 @@
+@use 'variables' as *;
+
+.sizes {
+  display: flex;
+  gap: $space-sm;
+
+  &__pill {
+    flex: 1;
+    padding: $space-sm $space-md;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    font-family: $font-body;
+    font-size: $fs-sm;
+    font-weight: $fw-medium;
+    color: $color-text-primary;
+    background: transparent;
+    transition: all $transition-fast;
+    min-height: 44px;
+
+    &.active {
+      background: $color-cta;
+      color: $color-cta-text;
+      border-color: $color-cta;
+    }
+
+    &:hover:not(.active) {
+      border-color: $color-text-primary;
+    }
+  }
+}

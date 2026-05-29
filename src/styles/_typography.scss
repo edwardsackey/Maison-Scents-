@@ -1,0 +1,37 @@
+@use 'variables' as *;
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-heading;
+  font-weight: $fw-regular;
+  color: $color-text-primary;
+  line-height: $lh-tight;
+}
+
+h1 { font-size: $fs-3xl; }
+h2 { font-size: $fs-2xl; }
+h3 { font-size: $fs-xl; }
+h4 { font-size: $fs-lg; }
+h5 { font-size: $fs-md; }
+h6 { font-size: $fs-base; }
+
+body {
+  font-family: $font-body;
+  font-size: $fs-base;
+  font-weight: $fw-regular;
+  line-height: $lh-normal;
+  color: $color-text-primary;
+  background-color: $color-bg;
+}
+
+.text-secondary {
+  color: $color-text-secondary;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+  letter-spacing: $ls-wider;
+}
+
+.font-heading {
+  font-family: $font-heading;
+}
