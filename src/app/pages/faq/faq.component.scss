@@ -1,0 +1,155 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.faq {
+  padding: $space-2xl $space-md $space-3xl;
+  max-width: 700px;
+  margin: 0 auto;
+
+  // Header
+  &__header {
+    text-align: center;
+    margin-bottom: $space-3xl;
+  }
+
+  &__label {
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    letter-spacing: $ls-widest;
+    color: $color-text-secondary;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: $space-sm;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $fs-2xl;
+    font-weight: $fw-regular;
+    color: $color-text-primary;
+    margin-bottom: $space-sm;
+
+    @include respond-to(tablet) {
+      font-size: $fs-3xl;
+    }
+  }
+
+  &__subtitle {
+    font-size: $fs-base;
+    color: $color-text-secondary;
+  }
+
+  // Accordion List
+  &__list {
+    margin-bottom: $space-3xl;
+  }
+
+  &__item {
+    border-bottom: 1px solid $color-border;
+
+    &:first-child {
+      border-top: 1px solid $color-border;
+    }
+  }
+
+  &__question {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-md;
+    padding: $space-lg 0;
+    font-family: $font-body;
+    font-size: $fs-base;
+    font-weight: $fw-medium;
+    color: $color-text-primary;
+    text-align: left;
+    cursor: pointer;
+    background: none;
+    border: none;
+    min-height: 56px;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: $color-text-secondary;
+    }
+  }
+
+  &__chevron {
+    flex-shrink: 0;
+    transition: transform 300ms ease;
+
+    .open & {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__answer {
+    padding: 0 0 $space-lg;
+    animation: answer-reveal 300ms ease;
+
+    p {
+      font-size: $fs-sm;
+      color: $color-text-secondary;
+      line-height: $lh-relaxed;
+    }
+  }
+
+  // Contact Section
+  &__contact {
+    text-align: center;
+    padding: $space-2xl;
+    background: $color-surface;
+    border-radius: $radius-lg;
+  }
+
+  &__contact-title {
+    font-family: $font-heading;
+    font-size: $fs-xl;
+    font-weight: $fw-regular;
+    color: $color-text-primary;
+    margin-bottom: $space-xs;
+  }
+
+  &__contact-text {
+    font-size: $fs-sm;
+    color: $color-text-secondary;
+    margin-bottom: $space-lg;
+  }
+
+  &__contact-links {
+    display: flex;
+    justify-content: center;
+    gap: $space-md;
+    flex-wrap: wrap;
+  }
+
+  &__contact-btn {
+    display: flex;
+    align-items: center;
+    gap: $space-xs;
+    padding: $space-sm $space-lg;
+    border: 1px solid $color-border;
+    border-radius: $radius-xl;
+    font-size: $fs-sm;
+    color: $color-text-primary;
+    background: $color-bg;
+    transition: border-color $transition-fast, background $transition-fast;
+
+    &:hover {
+      border-color: $color-text-primary;
+      background: $color-surface;
+    }
+  }
+}
+
+@keyframes answer-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
