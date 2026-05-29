@@ -1,4 +1,5 @@
 {
+  "outputDirectory": "dist/maison-scents/browser",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
