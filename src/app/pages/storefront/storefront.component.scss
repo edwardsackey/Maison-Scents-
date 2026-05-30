@@ -353,6 +353,13 @@
     font-weight: $fw-semibold;
     letter-spacing: $ls-wider;
     min-height: 48px;
+    transition: opacity $transition-fast;
+
+    &.disabled,
+    &:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
   }
 }
 

@@ -59,6 +59,12 @@ export class FilterService {
 
   resultCount = computed(() => this.filteredProducts().length);
 
+  hasActiveFilters = computed(() =>
+    this.scentFamilies().length > 0 ||
+    this.brands().length > 0 ||
+    this.sortBy() !== 'default'
+  );
+
   clearAll(): void {
     this.scentFamilies.set([]);
     this.brands.set([]);

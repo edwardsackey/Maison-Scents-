@@ -111,8 +111,15 @@
 
   <div class="filter-drawer__actions">
     <button class="filter-drawer__reset" (click)="clearFilters()">RESET</button>
-    <button class="filter-drawer__apply" (click)="applyFilters()">
-      SHOW {{ filterService.resultCount() }} RESULTS
+    <button class="filter-drawer__apply"
+            [class.disabled]="!filterService.hasActiveFilters()"
+            [disabled]="!filterService.hasActiveFilters()"
+            (click)="applyFilters()">
+      @if (filterService.hasActiveFilters()) {
+        SHOW {{ filterService.resultCount() }} RESULTS
+      } @else {
+        SHOW RESULTS
+      }
     </button>
   </div>
 </aside>

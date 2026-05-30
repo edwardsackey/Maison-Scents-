@@ -20,7 +20,7 @@
     aspect-ratio: 1;
     border-radius: $radius-lg;
     overflow: hidden;
-    background: #F5F5F5;
+    background: #FFFFFF;
     margin-bottom: $space-sm;
   }
 
@@ -30,7 +30,6 @@
     object-fit: contain;
     padding: $space-sm;
     transition: transform $transition-slow;
-    mix-blend-mode: multiply;
   }
 
   &__badge {
