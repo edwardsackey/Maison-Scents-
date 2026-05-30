@@ -21,7 +21,7 @@
     width: 100%;
     aspect-ratio: 3/4;
     overflow: hidden;
-    background: $color-surface;
+    background: #FFFFFF;
 
     @include respond-to(tablet) {
       aspect-ratio: 4/3;
