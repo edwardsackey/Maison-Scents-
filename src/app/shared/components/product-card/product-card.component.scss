@@ -30,6 +30,7 @@
     object-fit: contain;
     padding: $space-sm;
     transition: transform $transition-slow;
+    mix-blend-mode: multiply;
   }
 
   &__badge {
