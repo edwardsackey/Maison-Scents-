@@ -144,6 +144,146 @@ export const MOCK_PRODUCTS: Product[] = [
       { user: 'Akosua L.', stars: 4, review: 'Sensual and warm. Perfect date night scent.' }
     ]
   },
+  {
+    id: 'f6',
+    name: 'Miss Dior',
+    brand: 'Dior',
+    gender: 'female',
+    scent_family: 'Floral',
+    description: 'A timeless floral fragrance that embodies elegance and femininity with a fresh bouquet of roses and peony.',
+    images: ['assets/images/Miss-Dior.jpg'],
+    sizes: [
+      { ml: 30, price: 750 },
+      { ml: 50, price: 1100 },
+      { ml: 100, price: 1600 }
+    ],
+    stock_quantity: 10,
+    is_featured: true,
+    total_units_sold: 410,
+    delivery_days: 5,
+    is_new: true,
+    scent_notes: {
+      top: ['Blood Orange', 'Mandarin', 'Lily of the Valley'],
+      heart: ['Peony', 'Rose', 'Iris'],
+      base: ['Musk', 'Rosewood', 'Vanilla']
+    },
+    ratings: [
+      { user: 'Ama S.', stars: 5, review: 'Pure elegance in a bottle. My forever scent.' },
+      { user: 'Nana K.', stars: 5, review: 'The rose note is so natural and beautiful.' }
+    ]
+  },
+  {
+    id: 'f7',
+    name: 'Mon Paris',
+    brand: 'Yves Saint Laurent',
+    gender: 'female',
+    scent_family: 'Floral',
+    description: 'A daring and romantic fragrance inspired by the city of love — bold, passionate, and utterly modern.',
+    images: ['assets/images/Yves-Saint-Laurent-Mon-Paris-Eau-de-Parfum.png'],
+    sizes: [
+      { ml: 30, price: 680 },
+      { ml: 50, price: 980 },
+      { ml: 100, price: 1450 }
+    ],
+    stock_quantity: 14,
+    is_featured: false,
+    total_units_sold: 328,
+    delivery_days: 5,
+    is_new: false,
+    scent_notes: {
+      top: ['Strawberry', 'Raspberry', 'Pear'],
+      heart: ['White Peony', 'Datura', 'Jasmine'],
+      base: ['White Musk', 'Patchouli', 'Ambroxan']
+    },
+    ratings: [
+      { user: 'Efua R.', stars: 5, review: 'Romantic and sweet. Perfect for date nights.' },
+      { user: 'Adwoa M.', stars: 4, review: 'Gorgeous sillage. Lasts all day on my skin.' }
+    ]
+  },
+  {
+    id: 'f8',
+    name: 'Haze',
+    brand: 'Kay Ali',
+    gender: 'female',
+    scent_family: 'Gourmand',
+    description: 'A dreamy gourmand fragrance that wraps you in layers of warm vanilla and exotic spices. Irresistibly cozy.',
+    images: ['assets/images/Kay-Ali.png'],
+    sizes: [
+      { ml: 30, price: 350 },
+      { ml: 50, price: 520 },
+      { ml: 100, price: 780 }
+    ],
+    stock_quantity: 8,
+    is_featured: false,
+    total_units_sold: 195,
+    delivery_days: 3,
+    is_new: true,
+    scent_notes: {
+      top: ['Saffron', 'Pink Pepper', 'Bergamot'],
+      heart: ['Turkish Rose', 'Praline', 'Jasmine'],
+      base: ['Vanilla', 'Amber', 'Sandalwood']
+    },
+    ratings: [
+      { user: 'Akua J.', stars: 5, review: 'Smells heavenly. Warm and addictive.' },
+      { user: 'Serwaa B.', stars: 4, review: 'The vanilla dry-down is incredible.' }
+    ]
+  },
+  {
+    id: 'f9',
+    name: 'Éclaire',
+    brand: 'Lattafa',
+    gender: 'female',
+    scent_family: 'Oriental',
+    description: 'A radiant oriental composition that balances sweet amber with crisp florals for a luminous, modern scent.',
+    images: ['assets/images/Lataffa-Eclaire.jpg'],
+    sizes: [
+      { ml: 30, price: 230 },
+      { ml: 50, price: 350 },
+      { ml: 100, price: 520 }
+    ],
+    stock_quantity: 22,
+    is_featured: false,
+    total_units_sold: 178,
+    delivery_days: 3,
+    is_new: false,
+    scent_notes: {
+      top: ['Bergamot', 'Lemon', 'Pink Pepper'],
+      heart: ['Jasmine', 'Orange Blossom', 'Rose'],
+      base: ['Amber', 'Musk', 'Cedar']
+    },
+    ratings: [
+      { user: 'Yaa D.', stars: 4, review: 'Light but long-lasting. Great for everyday wear.' },
+      { user: 'Esi A.', stars: 5, review: 'Beautiful scent that evolves throughout the day.' }
+    ]
+  },
+  {
+    id: 'f10',
+    name: 'Orchid',
+    brand: 'Zara',
+    gender: 'female',
+    scent_family: 'Fresh',
+    description: 'A vibrant and youthful fresh fragrance that captures the spirit of effortless beauty with floral brightness.',
+    images: ['assets/images/Zara-1.png'],
+    sizes: [
+      { ml: 30, price: 120 },
+      { ml: 50, price: 180 },
+      { ml: 100, price: 280 }
+    ],
+    stock_quantity: 35,
+    is_featured: false,
+    total_units_sold: 520,
+    delivery_days: 3,
+    is_new: false,
+    scent_notes: {
+      top: ['Green Apple', 'Lemon', 'Bergamot'],
+      heart: ['Orchid', 'Lily', 'Peony'],
+      base: ['White Musk', 'Cedar', 'Amber']
+    },
+    ratings: [
+      { user: 'Maame A.', stars: 5, review: 'Affordable luxury. Smells way more expensive than it is.' },
+      { user: 'Abena T.', stars: 4, review: 'Fresh and clean. My go-to for the office.' }
+    ]
+  },
   // ===== MALE FRAGRANCES =====
   {
     id: 'm1',

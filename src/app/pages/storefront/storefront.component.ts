@@ -1,10 +1,11 @@
-import { Component, ChangeDetectionStrategy, inject, signal, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, signal, computed, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 import { ProductCardComponent } from '../../shared/components/product-card/product-card.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { SkeletonLoaderComponent } from '../../shared/components/skeleton-loader/skeleton-loader.component';
 import { FilterService } from '../../core/services/filter.service';
+import { ProductService } from '../../core/services/product.service';
 import { AuthService } from '../../core/services/auth.service';
 import { Product } from '../../core/models/product.model';
 
@@ -26,6 +27,7 @@ export class StorefrontComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   filterService = inject(FilterService);
+  private productService = inject(ProductService);
   auth = inject(AuthService);
 
   gender = signal<string>('female');
@@ -35,15 +37,20 @@ export class StorefrontComponent implements OnInit {
   searchQuery = signal('');
 
   scentFamilies = ['Floral', 'Woody', 'Oriental', 'Fresh', 'Gourmand', 'Chypre'];
-  brands = [
-    { name: 'Lattafa', count: 12 },
-    { name: 'Afnan', count: 5 },
-    { name: 'Valentino', count: 3 },
-    { name: 'Louis Vuitton', count: 4 },
-    { name: 'Rasasi', count: 10 },
-    { name: 'Tom Ford', count: 4 },
-    { name: 'Armaf', count: 9 }
-  ];
+  brands = computed(() => {
+    const gender = this.gender();
+    const genderProducts = this.productService.products()
+      .filter(p => p.gender === gender);
+
+    const brandMap = new Map<string, number>();
+    genderProducts.forEach(p => {
+      brandMap.set(p.brand, (brandMap.get(p.brand) || 0) + 1);
+    });
+
+    return Array.from(brandMap.entries())
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => b.count - a.count);
+  });
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
