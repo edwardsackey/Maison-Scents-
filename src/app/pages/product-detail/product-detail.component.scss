@@ -78,7 +78,7 @@
 
     // Front face
     &--front {
-      transform: translateZ($prism-depth / 2);
+      transform: translateZ(calc($prism-depth / 2));
       background: #FFFFFF;
     }
 
@@ -94,7 +94,7 @@
 
     // Back face (holds second image)
     &--back {
-      transform: rotateY(180deg) translateZ($prism-depth / 2);
+      transform: rotateY(180deg) translateZ(calc($prism-depth / 2));
       background: #FFFFFF;
     }
 
