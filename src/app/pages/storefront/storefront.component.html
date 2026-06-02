@@ -96,7 +96,7 @@
   <div class="filter-drawer__section">
     <h3 class="filter-drawer__section-title">BRAND</h3>
     <div class="filter-drawer__brands">
-      @for (brand of brands; track brand.name) {
+      @for (brand of brands(); track brand.name) {
         <label class="filter-drawer__brand">
           <input type="checkbox"
                  [checked]="isBrandSelected(brand.name)"
