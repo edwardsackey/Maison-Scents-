@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, inject, signal, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, signal, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 import { SizeSelectorComponent } from '../../shared/components/size-selector/size-selector.component';
@@ -17,7 +17,7 @@ import { RatingService } from '../../core/services/rating.service';
   styleUrl: './product-detail.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductDetailComponent implements OnInit {
+export class ProductDetailComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private productService = inject(ProductService);
@@ -31,6 +31,20 @@ export class ProductDetailComponent implements OnInit {
   addingToCart = signal(false);
   showPreOrder = signal(false);
   menuOpen = signal(false);
+
+  // 3D rotation state
+  rotateAngle = signal(0);
+  hasInteracted = signal(false);
+  private isDragging = false;
+  private startX = 0;
+  private startAngle = 0;
+  private lastX = 0;
+  private velocity = 0;
+  private momentumId = 0;
+  private readonly SENSITIVITY = 0.6;
+
+  private boundMouseMove = this.onMouseMove.bind(this);
+  private boundMouseUp = this.onMouseUp.bind(this);
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -89,6 +103,84 @@ export class ProductDetailComponent implements OnInit {
 
   cancelPreOrder(): void {
     this.showPreOrder.set(false);
+  }
+
+  // --- 3D Rotation ---
+  onRotateStart(e: TouchEvent): void {
+    this.stopMomentum();
+    this.isDragging = true;
+    this.hasInteracted.set(true);
+    this.startX = e.touches[0].clientX;
+    this.lastX = this.startX;
+    this.startAngle = this.rotateAngle();
+    this.velocity = 0;
+  }
+
+  onRotateMove(e: TouchEvent): void {
+    if (!this.isDragging) return;
+    e.preventDefault();
+    const x = e.touches[0].clientX;
+    const delta = x - this.startX;
+    this.velocity = x - this.lastX;
+    this.lastX = x;
+    this.rotateAngle.set(this.startAngle + delta * this.SENSITIVITY);
+  }
+
+  onRotateEnd(): void {
+    this.isDragging = false;
+    this.applyMomentum();
+  }
+
+  onMouseStart(e: MouseEvent): void {
+    this.stopMomentum();
+    this.isDragging = true;
+    this.hasInteracted.set(true);
+    this.startX = e.clientX;
+    this.lastX = this.startX;
+    this.startAngle = this.rotateAngle();
+    this.velocity = 0;
+    document.addEventListener('mousemove', this.boundMouseMove);
+    document.addEventListener('mouseup', this.boundMouseUp);
+  }
+
+  private onMouseMove(e: MouseEvent): void {
+    if (!this.isDragging) return;
+    const x = e.clientX;
+    const delta = x - this.startX;
+    this.velocity = x - this.lastX;
+    this.lastX = x;
+    this.rotateAngle.set(this.startAngle + delta * this.SENSITIVITY);
+  }
+
+  private onMouseUp(): void {
+    this.isDragging = false;
+    document.removeEventListener('mousemove', this.boundMouseMove);
+    document.removeEventListener('mouseup', this.boundMouseUp);
+    this.applyMomentum();
+  }
+
+  private applyMomentum(): void {
+    const friction = 0.95;
+    const tick = () => {
+      this.velocity *= friction;
+      if (Math.abs(this.velocity) < 0.1) return;
+      this.rotateAngle.update(a => a + this.velocity * this.SENSITIVITY);
+      this.momentumId = requestAnimationFrame(tick);
+    };
+    this.momentumId = requestAnimationFrame(tick);
+  }
+
+  private stopMomentum(): void {
+    if (this.momentumId) {
+      cancelAnimationFrame(this.momentumId);
+      this.momentumId = 0;
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.stopMomentum();
+    document.removeEventListener('mousemove', this.boundMouseMove);
+    document.removeEventListener('mouseup', this.boundMouseUp);
   }
 
   goBack(): void {
