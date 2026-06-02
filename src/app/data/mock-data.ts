@@ -123,7 +123,7 @@ export const MOCK_PRODUCTS: Product[] = [
     gender: 'female',
     scent_family: 'Oriental',
     description: 'A sophisticated evening fragrance with rich oud and delicate rose that commands attention after dark.',
-    images: ['assets/images/Afnan-9pm.png'],
+    images: ['assets/images/9pm-detail.png', 'assets/images/Afnan-9pm.png'],
     sizes: [
       { ml: 30, price: 280 },
       { ml: 50, price: 420 },
