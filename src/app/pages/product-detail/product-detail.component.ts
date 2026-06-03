@@ -32,7 +32,6 @@ export class ProductDetailComponent implements OnInit {
   currentPrice = signal<number>(0);
   addingToCart = signal(false);
   showPreOrder = signal(false);
-  menuOpen = signal(false);
   signaturePop = signal(false);
 
   ngOnInit(): void {

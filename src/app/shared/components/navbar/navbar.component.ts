@@ -1,7 +1,8 @@
-import { Component, ChangeDetectionStrategy, output, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { CartService } from '../../../core/services/cart.service';
 import { WishlistService } from '../../../core/services/wishlist.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,18 +13,36 @@ import { WishlistService } from '../../../core/services/wishlist.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavbarComponent {
+  private router = inject(Router);
   cart = inject(CartService);
   wishlist = inject(WishlistService);
+  auth = inject(AuthService);
 
-  menuToggle = output<void>();
+  menuOpen = signal(false);
   cartBounce = false;
 
-  onMenuToggle(): void {
-    this.menuToggle.emit();
+  toggleMenu(): void {
+    this.menuOpen.update(v => !v);
+  }
+
+  closeMenu(): void {
+    this.menuOpen.set(false);
   }
 
   triggerCartBounce(): void {
     this.cartBounce = true;
     setTimeout(() => this.cartBounce = false, 400);
+  }
+
+  enableAdmin(): void {
+    this.auth.enableAdmin();
+    this.closeMenu();
+    this.router.navigate(['/admin']);
+  }
+
+  signOut(): void {
+    this.auth.signOut();
+    this.closeMenu();
+    this.router.navigate(['/auth/sign-in']);
   }
 }

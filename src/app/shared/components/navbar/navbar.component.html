@@ -1,5 +1,5 @@
 <nav class="navbar">
-  <button class="navbar__menu" (click)="onMenuToggle()" aria-label="Menu">
+  <button class="navbar__menu" (click)="toggleMenu()" aria-label="Menu">
     <svg width="22" height="14" viewBox="0 0 22 14" fill="none">
       <path d="M1 1H21" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round"/>
       <path d="M1 7H21" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round"/>
@@ -34,3 +34,52 @@
     </a>
   </div>
 </nav>
+
+<!-- Menu Drawer Backdrop -->
+<div class="menu-backdrop" [class.open]="menuOpen()" (click)="closeMenu()"></div>
+
+<!-- Menu Drawer -->
+<aside class="menu-drawer" [class.open]="menuOpen()">
+  <h2 class="menu-drawer__title">Account</h2>
+
+  <nav class="menu-drawer__nav">
+    <a class="menu-drawer__item" routerLink="/cart" (click)="closeMenu()">
+      <span>My Orders</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <path d="M9 18L15 12L9 6" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <div class="menu-drawer__divider"></div>
+
+    <a class="menu-drawer__item" routerLink="/wishlist" (click)="closeMenu()">
+      <span>Wishlist</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <path d="M9 18L15 12L9 6" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <div class="menu-drawer__divider"></div>
+
+    <a class="menu-drawer__item" routerLink="/signature-scents" (click)="closeMenu()">
+      <span>Signature Perfumes</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <path d="M9 18L15 12L9 6" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <div class="menu-drawer__divider"></div>
+
+    <button class="menu-drawer__item" (click)="enableAdmin()">
+      <span>Admin</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <path d="M9 18L15 12L9 6" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <div class="menu-drawer__divider"></div>
+
+    <button class="menu-drawer__item menu-drawer__item--signout" (click)="signOut()">
+      <span>Sign Out</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <path d="M9 18L15 12L9 6" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </nav>
+</aside>
