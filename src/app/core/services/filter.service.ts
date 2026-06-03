@@ -34,13 +34,13 @@ export class FilterService {
       );
     }
 
-    const query = this.searchQuery().toLowerCase();
+    const query = this.searchQuery().toLowerCase().trim();
     if (query) {
-      products = products.filter(p =>
-        p.name.toLowerCase().includes(query) ||
-        p.brand.toLowerCase().includes(query) ||
-        p.scent_family.toLowerCase().includes(query)
-      );
+      const words = query.split(/\s+/);
+      products = products.filter(p => {
+        const haystack = `${p.brand} ${p.name} ${p.scent_family}`.toLowerCase();
+        return words.every(word => haystack.includes(word));
+      });
     }
 
     switch (this.sortBy()) {
