@@ -16,6 +16,9 @@ export class AdminDashboardComponent {
   orderService = inject(OrderService);
 
   get totalProducts(): number { return this.productService.totalProducts(); }
+  get totalStock(): number {
+    return this.productService.products().reduce((sum, p) => sum + p.stock_quantity, 0);
+  }
   get totalOrders(): number { return this.orderService.orders().length; }
   get outOfStock(): number { return this.productService.getOutOfStock().length; }
   get preOrdersPending(): number {
