@@ -16,6 +16,8 @@ export class AdminProductsComponent {
   showForm = signal(false);
   editingProduct = signal<Product | null>(null);
 
+  imagePreview = signal<string | null>(null);
+
   form = {
     name: '', brand: '', gender: 'female' as 'male' | 'female' | 'unisex',
     scent_family: '', description: '',
@@ -28,6 +30,7 @@ export class AdminProductsComponent {
   openAddForm(): void {
     this.editingProduct.set(null);
     this.resetForm();
+    this.imagePreview.set(null);
     this.showForm.set(true);
   }
 
@@ -46,6 +49,7 @@ export class AdminProductsComponent {
       is_new: p.is_new, is_featured: p.is_featured,
       image: p.images[0] || ''
     };
+    this.imagePreview.set(p.images[0] || null);
     this.showForm.set(true);
   }
 
@@ -83,6 +87,25 @@ export class AdminProductsComponent {
     }
 
     this.showForm.set(false);
+  }
+
+  onImageSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUrl = reader.result as string;
+      this.form.image = dataUrl;
+      this.imagePreview.set(dataUrl);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  removeImage(): void {
+    this.form.image = '';
+    this.imagePreview.set(null);
   }
 
   deleteProduct(id: string): void {

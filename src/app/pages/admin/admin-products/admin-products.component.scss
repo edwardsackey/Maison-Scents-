@@ -105,6 +105,94 @@
   input { width: 16px; height: 16px; }
 }
 
+// Photo Upload
+.photo-field {
+  margin-bottom: $space-md;
+
+  &__label {
+    display: block;
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    color: $color-text-secondary;
+    text-transform: uppercase;
+    letter-spacing: $ls-wide;
+    margin-bottom: $space-xs;
+  }
+
+  &__upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: $space-sm;
+    width: 100%;
+    padding: $space-xl $space-md;
+    border: 2px dashed $color-border;
+    border-radius: $radius-lg;
+    background: $color-surface;
+    cursor: pointer;
+    transition: border-color $transition-base, background $transition-base;
+
+    &:hover {
+      border-color: $color-text-secondary;
+      background: darken(#F5F5F5, 2%);
+    }
+
+    &:active {
+      transform: scale(0.99);
+    }
+  }
+
+  &__text {
+    font-size: $fs-base;
+    font-weight: $fw-medium;
+    color: $color-text-primary;
+  }
+
+  &__hint {
+    font-size: $fs-xs;
+    color: $color-text-secondary;
+  }
+
+  &__preview {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    max-width: 200px;
+    border-radius: $radius-lg;
+    overflow: hidden;
+    background: #FFFFFF;
+    border: 1px solid $color-border;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: $space-sm;
+      mix-blend-mode: multiply;
+    }
+  }
+
+  &__remove {
+    position: absolute;
+    top: $space-sm;
+    right: $space-sm;
+    width: 28px;
+    height: 28px;
+    border-radius: $radius-round;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background $transition-fast;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
+  }
+}
+
 .save-btn {
   width: 100%; padding: $space-md; background: $color-cta;
   color: $color-cta-text; font-weight: $fw-semibold; letter-spacing: $ls-wider;

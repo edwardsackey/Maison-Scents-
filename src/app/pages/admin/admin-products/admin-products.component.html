@@ -119,12 +119,34 @@
         <label class="check"><input type="checkbox" [(ngModel)]="form.is_featured"> Featured</label>
       </div>
 
-      <label class="field">
-        <!-- IMAGE UPLOAD PLACEHOLDER -->
-        <!-- Replace input with Cloudinary upload widget when backend is ready -->
-        <span>Image Path</span>
-        <input type="text" [(ngModel)]="form.image" placeholder="assets/images/...">
-      </label>
+      <!-- Product Photo -->
+      <div class="photo-field">
+        <span class="photo-field__label">Product Photo</span>
+
+        @if (imagePreview()) {
+          <div class="photo-field__preview">
+            <img [src]="imagePreview()" alt="Product preview">
+            <button class="photo-field__remove" (click)="removeImage()" aria-label="Remove photo">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M18 6L6 18" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+                <path d="M6 6L18 18" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+        } @else {
+          <button class="photo-field__upload" (click)="fileInput.click()" type="button">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+              <rect x="3" y="3" width="18" height="18" rx="3" stroke="#6B6B6B" stroke-width="1.5"/>
+              <circle cx="8.5" cy="8.5" r="1.5" stroke="#6B6B6B" stroke-width="1.5"/>
+              <path d="M21 15L16.65 10.65C16.26 10.26 15.63 10.26 15.24 10.65L5 21" stroke="#6B6B6B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="photo-field__text">Tap to add photo of the product</span>
+            <span class="photo-field__hint">JPG, PNG up to 5MB</span>
+          </button>
+        }
+
+        <input #fileInput type="file" accept="image/*" hidden (change)="onImageSelected($event)">
+      </div>
 
       <button class="save-btn" (click)="saveProduct()">
         {{ editingProduct() ? 'Update Product' : 'Add Product' }}
