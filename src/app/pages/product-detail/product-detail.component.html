@@ -12,7 +12,15 @@
 
     <!-- Product Image -->
     <div class="detail__image-wrap">
-      <img [src]="p.images[0]" [alt]="p.name" class="detail__image">
+      @if (showImageFallback()) {
+        <div class="detail__fallback" [style.background]="fallbackGradient()">
+          <span class="detail__fallback-brand">{{ p.brand }}</span>
+          <span class="detail__fallback-name">{{ p.name }}</span>
+        </div>
+      } @else {
+        <img [src]="imageUrl()" [alt]="p.name" class="detail__image"
+             (error)="imageError.set(true)">
+      }
     </div>
 
     <!-- Product Info -->

@@ -36,7 +36,7 @@ export class StorefrontComponent implements OnInit {
   brands = computed(() => {
     const gender = this.gender();
     const genderProducts = this.productService.products()
-      .filter(p => p.gender === gender);
+      .filter(p => p.gender === gender || p.gender === 'unisex');
 
     const brandMap = new Map<string, number>();
     genderProducts.forEach(p => {

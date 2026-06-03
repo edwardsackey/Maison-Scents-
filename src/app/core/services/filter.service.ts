@@ -16,7 +16,8 @@ export class FilterService {
 
     const gender = this.gender();
     if (gender) {
-      products = products.filter(p => p.gender === gender);
+      // Unisex fragrances appear in both "For Her" and "For Him"
+      products = products.filter(p => p.gender === gender || p.gender === 'unisex');
     }
 
     const families = this.scentFamilies();

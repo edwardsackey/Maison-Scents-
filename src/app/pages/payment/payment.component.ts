@@ -26,6 +26,7 @@ export class PaymentComponent {
   cvv = '';
   nameOnCard = 'Mensah Edward Sackey';
   fullName = '';
+  deliveryEmail = '';
   town = '';
   phone = '';
 
@@ -33,6 +34,7 @@ export class PaymentComponent {
   momoNumber = '';
   momoName = '';
   momoFullName = '';
+  momoEmail = '';
   momoTown = '';
   momoPhone = '';
 
@@ -58,16 +60,19 @@ export class PaymentComponent {
       ? { fullName: this.fullName, town: this.town, phone: this.phone }
       : { fullName: this.momoFullName, town: this.momoTown, phone: this.momoPhone };
 
-    setTimeout(() => {
-      this.orderService.createOrder(
+    setTimeout(async () => {
+      const order = await this.orderService.createOrder(
         this.cart.items(),
         this.activeTab(),
         delivery
-      ).subscribe(() => {
+      );
+
+      if (order) {
         this.cart.clear();
-        this.loading.set(false);
-        this.router.navigate(['/confirmation']);
-      });
+      }
+
+      this.loading.set(false);
+      this.router.navigate(['/confirmation']);
     }, 1500);
   }
 

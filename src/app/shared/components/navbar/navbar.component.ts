@@ -34,14 +34,8 @@ export class NavbarComponent {
     setTimeout(() => this.cartBounce = false, 400);
   }
 
-  enableAdmin(): void {
-    this.auth.enableAdmin();
-    this.closeMenu();
-    this.router.navigate(['/admin']);
-  }
-
-  signOut(): void {
-    this.auth.signOut();
+  async signOut(): Promise<void> {
+    await this.auth.signOut();
     this.closeMenu();
     this.router.navigate(['/auth/sign-in']);
   }

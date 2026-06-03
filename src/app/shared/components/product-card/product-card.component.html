@@ -1,7 +1,15 @@
 <a class="card" [routerLink]="['/product', product().id]"
    [style.animation-delay.ms]="animationDelay()">
   <div class="card__image-wrap">
-    <img [src]="product().images[0]" [alt]="product().name" class="card__image" loading="lazy">
+    @if (showFallback()) {
+      <div class="card__fallback" [style.background]="fallbackGradient()">
+        <span class="card__fallback-brand">{{ product().brand }}</span>
+        <span class="card__fallback-name">{{ product().name }}</span>
+      </div>
+    } @else {
+      <img [src]="imageUrl()" [alt]="product().name" class="card__image" loading="lazy"
+           (error)="onImageError()">
+    }
 
     @if (product().is_new) {
       <span class="card__badge">NEW</span>

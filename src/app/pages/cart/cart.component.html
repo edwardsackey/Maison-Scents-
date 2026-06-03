@@ -36,7 +36,14 @@
       @for (item of cart.items(); track item.productId + item.size) {
         <div class="cart-item" [class.removing]="isRemoving(item.productId, item.size)">
           <div class="cart-item__image-wrap">
-            <img [src]="item.image" [alt]="item.productName" class="cart-item__image">
+            @if (item.image) {
+              <img [src]="item.image" [alt]="item.productName" class="cart-item__image">
+            } @else {
+              <div class="cart-item__fallback">
+                <span class="cart-item__fallback-brand">{{ item.brand }}</span>
+                <span class="cart-item__fallback-name">{{ item.productName }}</span>
+              </div>
+            }
           </div>
 
           <div class="cart-item__details">

@@ -16,10 +16,9 @@ export class AdminOrdersComponent {
   orderService = inject(OrderService);
   statuses: OrderStatus[] = ['pending', 'processing', 'shipped', 'delivered', 'pre_order'];
 
-  updateStatus(orderId: string, event: Event): void {
+  async updateStatus(orderId: string, event: Event): Promise<void> {
     const status = (event.target as HTMLSelectElement).value as OrderStatus;
-    // Replace with: this.orderService.updateStatus(id, status).subscribe()
-    this.orderService.updateStatus(orderId, status);
+    await this.orderService.updateStatus(orderId, status);
   }
 
   getStatusClass(status: string): string {

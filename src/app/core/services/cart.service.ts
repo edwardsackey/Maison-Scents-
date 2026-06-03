@@ -1,9 +1,11 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, inject, signal, computed } from '@angular/core';
 import { CartItem } from '../models/order.model';
 import { Product } from '../models/product.model';
+import { ImageSearchService } from './image-search.service';
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
+  private imageSearch = inject(ImageSearchService);
   items = signal<CartItem[]>([]);
 
   totalItems = computed(() =>
@@ -35,7 +37,7 @@ export class CartService {
         productId: product.id,
         productName: product.name,
         brand: product.brand,
-        image: product.images[0],
+        image: this.imageSearch.getImageUrl(product) || product.images?.[0] || '',
         size: sizeml,
         quantity: 1,
         price: size.price,

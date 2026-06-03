@@ -67,13 +67,15 @@
     </a>
     <div class="menu-drawer__divider"></div>
 
-    <button class="menu-drawer__item" (click)="enableAdmin()">
-      <span>Admin</span>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-        <path d="M9 18L15 12L9 6" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </button>
-    <div class="menu-drawer__divider"></div>
+    @if (auth.isAdmin()) {
+      <a class="menu-drawer__item" routerLink="/admin" (click)="closeMenu()">
+        <span>Admin</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <path d="M9 18L15 12L9 6" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <div class="menu-drawer__divider"></div>
+    }
 
     <button class="menu-drawer__item menu-drawer__item--signout" (click)="signOut()">
       <span>Sign Out</span>

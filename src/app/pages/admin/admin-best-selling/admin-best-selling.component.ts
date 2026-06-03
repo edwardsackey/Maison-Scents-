@@ -16,8 +16,7 @@ export class AdminBestSellingComponent {
     return [...this.productService.products()].sort((a, b) => b.total_units_sold - a.total_units_sold);
   }
 
-  toggleFeatured(id: string): void {
-    // Replace with: this.productService.toggleFeatured(id).subscribe()
-    this.productService.toggleFeatured(id);
+  async toggleFeatured(id: string): Promise<void> {
+    await this.productService.toggleFeatured(id);
   }
 }

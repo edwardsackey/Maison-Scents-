@@ -62,7 +62,13 @@
              [style.animation-delay]="i * 80 + 'ms'">
 
           <div class="collection__image-wrap" (click)="viewProduct(product)">
-            <img [src]="product.images[0]" [alt]="product.name" class="collection__image">
+            @if (hasImage(product)) {
+              <img [src]="getProductImage(product)" [alt]="product.name" class="collection__image">
+            } @else {
+              <div class="collection__fallback" [style.background]="getFallbackGradient(product)">
+                <span class="collection__fallback-name">{{ product.name }}</span>
+              </div>
+            }
           </div>
 
           <div class="collection__info" (click)="viewProduct(product)">

@@ -76,7 +76,28 @@
   </div>
 
   <div class="filter-drawer__section">
-    <h3 class="filter-drawer__section-title">FAMILY</h3>
+    <h3 class="filter-drawer__section-title">SORT BY</h3>
+    <div class="filter-drawer__chips">
+      <button class="filter-drawer__chip"
+              [class.active]="filterService.sortBy() === 'best-selling'"
+              (click)="filterService.sortBy.set(filterService.sortBy() === 'best-selling' ? 'default' : 'best-selling')">
+        Best Selling
+      </button>
+      <button class="filter-drawer__chip"
+              [class.active]="filterService.sortBy() === 'price-asc'"
+              (click)="filterService.sortBy.set(filterService.sortBy() === 'price-asc' ? 'default' : 'price-asc')">
+        Price: Low to High
+      </button>
+      <button class="filter-drawer__chip"
+              [class.active]="filterService.sortBy() === 'price-desc'"
+              (click)="filterService.sortBy.set(filterService.sortBy() === 'price-desc' ? 'default' : 'price-desc')">
+        Price: High to Low
+      </button>
+    </div>
+  </div>
+
+  <div class="filter-drawer__section">
+    <h3 class="filter-drawer__section-title">SCENT FAMILY</h3>
     <div class="filter-drawer__chips">
       @for (family of scentFamilies; track family) {
         <button class="filter-drawer__chip"
@@ -85,11 +106,6 @@
           {{ family }}
         </button>
       }
-      <button class="filter-drawer__chip"
-              [class.active]="filterService.sortBy() === 'best-selling'"
-              (click)="filterService.sortBy.set(filterService.sortBy() === 'best-selling' ? 'default' : 'best-selling')">
-        Best Selling
-      </button>
     </div>
   </div>
 

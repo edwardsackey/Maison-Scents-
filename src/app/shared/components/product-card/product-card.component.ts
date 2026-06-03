@@ -1,7 +1,8 @@
-import { Component, ChangeDetectionStrategy, input, inject, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, inject, signal, computed, effect } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Product } from '../../../core/models/product.model';
 import { WishlistService } from '../../../core/services/wishlist.service';
+import { ImageSearchService } from '../../../core/services/image-search.service';
 
 @Component({
   selector: 'app-product-card',
@@ -16,7 +17,38 @@ export class ProductCardComponent {
   animationDelay = input<number>(0);
 
   wishlist = inject(WishlistService);
+  imageSearch = inject(ImageSearchService);
+
   justToggled = signal(false);
+  imageError = signal(false);
+
+  /** Best available image URL (resolved or from DB) */
+  imageUrl = computed(() => this.imageSearch.getImageUrl(this.product()));
+
+  /** Show gradient fallback when no image or image failed to load */
+  showFallback = computed(() => !this.imageUrl() || this.imageError());
+
+  /** Scent-family-based gradient for the fallback card */
+  fallbackGradient = computed(() => {
+    const gradients: Record<string, string> = {
+      'Floral':    'linear-gradient(135deg, #fce4ec, #f8bbd0)',
+      'Woody':     'linear-gradient(135deg, #efebe9, #d7ccc8)',
+      'Oriental':  'linear-gradient(135deg, #fff3e0, #ffe0b2)',
+      'Fresh':     'linear-gradient(135deg, #e0f7fa, #b2ebf2)',
+      'Gourmand':  'linear-gradient(135deg, #fbe9e7, #ffccbc)',
+      'Chypre':    'linear-gradient(135deg, #f1f8e9, #dcedc8)',
+    };
+    return gradients[this.product().scent_family] || 'linear-gradient(135deg, #fafafa, #f0f0f0)';
+  });
+
+  constructor() {
+    // Auto-resolve placeholder images when this card is rendered
+    effect(() => {
+      const p = this.product();
+      this.imageError.set(false);
+      this.imageSearch.queueResolve(p);
+    });
+  }
 
   get isWishlisted(): boolean {
     return this.wishlist.isWishlisted(this.product().id);
@@ -28,5 +60,9 @@ export class ProductCardComponent {
     this.wishlist.toggle(this.product().id);
     this.justToggled.set(true);
     setTimeout(() => this.justToggled.set(false), 600);
+  }
+
+  onImageError(): void {
+    this.imageError.set(true);
   }
 }

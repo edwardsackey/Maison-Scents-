@@ -73,6 +73,34 @@
 
   &__field {
     width: 100%;
+
+    &--password {
+      position: relative;
+
+      .auth__input {
+        padding-right: 48px;
+      }
+    }
+  }
+
+  &__eye {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: $color-text-secondary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: $color-text-primary;
+    }
   }
 
   &__input {
@@ -92,6 +120,13 @@
     &:focus {
       border-color: $color-text-primary;
     }
+  }
+
+  &__error {
+    font-size: $fs-sm;
+    color: $color-error;
+    text-align: left;
+    padding: $space-xs 0;
   }
 
   &__submit {

@@ -12,29 +12,36 @@ import { AuthService } from '../../../core/services/auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SignUpComponent {
-  private auth = inject(AuthService);
+  auth = inject(AuthService);
   private router = inject(Router);
 
   name = '';
   email = '';
   password = '';
   loading = signal(false);
+  showPassword = signal(false);
 
-  onSubmit(): void {
-    if (!this.name || !this.email || !this.password) return;
-    this.loading.set(true);
-    this.auth.signUp(this.name, this.email, this.password).subscribe({
-      next: () => this.router.navigate(['/gender-selection']),
-      complete: () => this.loading.set(false)
-    });
+  togglePassword(): void {
+    this.showPassword.update(v => !v);
   }
 
-  onSocialLogin(provider: 'google' | 'apple'): void {
-    // Replace with real OAuth flow: Google Sign-In or Apple Sign-In
+  async onSubmit(): Promise<void> {
+    if (!this.name || !this.email || !this.password) return;
     this.loading.set(true);
-    this.auth.signUp(provider, `${provider}@user.com`, '').subscribe({
-      next: () => this.router.navigate(['/gender-selection']),
-      complete: () => this.loading.set(false)
-    });
+
+    const success = await this.auth.signUp(this.name, this.email, this.password);
+    if (success) {
+      this.router.navigate(['/gender-selection']);
+    }
+
+    this.loading.set(false);
+  }
+
+  async onSocialLogin(provider: 'google' | 'apple'): Promise<void> {
+    if (provider === 'google') {
+      await this.auth.signInWithGoogle();
+    } else if (provider === 'apple') {
+      await this.auth.signInWithApple();
+    }
   }
 }

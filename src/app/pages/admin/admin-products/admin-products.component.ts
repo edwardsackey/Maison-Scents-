@@ -57,13 +57,25 @@ export class AdminProductsComponent {
     this.showForm.set(true);
   }
 
-  saveProduct(): void {
-    const data: Product = {
-      id: this.editingProduct()?.id || 'p' + Date.now(),
+  saving = signal(false);
+
+  async saveProduct(): Promise<void> {
+    this.saving.set(true);
+
+    // Upload image to Supabase Storage if it's a data URL (new upload)
+    let imageUrl = this.form.image;
+    if (imageUrl.startsWith('data:') && this.selectedFile) {
+      const uploaded = await this.productService.uploadImage(this.selectedFile);
+      if (uploaded) {
+        imageUrl = uploaded;
+      }
+    }
+
+    const data: Omit<Product, 'id'> & { id?: string } = {
       name: this.form.name, brand: this.form.brand,
       gender: this.form.gender, scent_family: this.form.scent_family,
       description: this.form.description,
-      images: [this.form.image || 'assets/images/Khamarah.jpg'],
+      images: [imageUrl || 'assets/images/Khamarah.jpg'],
       sizes: [
         { ml: 30, price: this.form.size30, available: this.form.avail30 },
         { ml: 50, price: this.form.size50, available: this.form.avail50 },
@@ -83,20 +95,24 @@ export class AdminProductsComponent {
     };
 
     if (this.editingProduct()) {
-      // Replace with: this.productService.update(id, data).subscribe()
-      this.productService.updateProduct(data.id, data);
+      await this.productService.updateProduct(this.editingProduct()!.id, data);
     } else {
-      // Replace with: this.productService.create(data).subscribe()
-      this.productService.addProduct(data);
+      await this.productService.addProduct(data);
     }
 
+    this.saving.set(false);
+    this.selectedFile = null;
     this.showForm.set(false);
   }
+
+  selectedFile: File | null = null;
 
   onImageSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
     if (!file) return;
+
+    this.selectedFile = file;
 
     const reader = new FileReader();
     reader.onload = () => {
@@ -109,12 +125,12 @@ export class AdminProductsComponent {
 
   removeImage(): void {
     this.form.image = '';
+    this.selectedFile = null;
     this.imagePreview.set(null);
   }
 
-  deleteProduct(id: string): void {
-    // Replace with: this.productService.delete(id).subscribe()
-    this.productService.deleteProduct(id);
+  async deleteProduct(id: string): Promise<void> {
+    await this.productService.deleteProduct(id);
   }
 
   getPriceRange(p: Product): string {

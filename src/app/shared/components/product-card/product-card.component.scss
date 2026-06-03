@@ -33,6 +33,34 @@
     mix-blend-mode: multiply;
   }
 
+  &__fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 32px 16px;
+
+    &-brand {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(26, 26, 26, 0.3);
+    }
+
+    &-name {
+      font-family: $font-heading;
+      font-size: 18px;
+      font-weight: 400;
+      color: rgba(26, 26, 26, 0.5);
+      text-align: center;
+      line-height: 1.3;
+    }
+  }
+
   &__badge {
     position: absolute;
     top: $space-sm;

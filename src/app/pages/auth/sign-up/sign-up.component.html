@@ -31,14 +31,33 @@
                required>
       </div>
 
-      <div class="auth__field">
-        <input type="password"
+      <div class="auth__field auth__field--password">
+        <input [type]="showPassword() ? 'text' : 'password'"
                class="auth__input"
                placeholder="Password"
                [(ngModel)]="password"
                name="password"
                required>
+        <button type="button" class="auth__eye" (click)="togglePassword()" aria-label="Toggle password visibility">
+          @if (showPassword()) {
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+              <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+              <path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/>
+              <line x1="1" y1="1" x2="23" y2="23"/>
+            </svg>
+          } @else {
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          }
+        </button>
       </div>
+
+      @if (auth.authError()) {
+        <p class="auth__error">{{ auth.authError() }}</p>
+      }
 
       <button type="submit"
               class="auth__submit"
@@ -64,12 +83,6 @@
         <span>Continue with Google</span>
       </button>
 
-      <button class="auth__social-btn" (click)="onSocialLogin('apple')">
-        <svg class="auth__social-icon" viewBox="0 0 24 24" width="20" height="20" fill="#1A1A1A">
-          <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
-        </svg>
-        <span>Continue with Apple</span>
-      </button>
     </div>
 
     <p class="auth__footer">

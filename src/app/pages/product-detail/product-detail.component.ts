@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, inject, signal, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, signal, computed, effect, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 import { SizeSelectorComponent } from '../../shared/components/size-selector/size-selector.component';
@@ -9,6 +9,7 @@ import { CartService } from '../../core/services/cart.service';
 import { WishlistService } from '../../core/services/wishlist.service';
 import { RatingService } from '../../core/services/rating.service';
 import { SignatureService } from '../../core/services/signature.service';
+import { ImageSearchService } from '../../core/services/image-search.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -26,6 +27,7 @@ export class ProductDetailComponent implements OnInit {
   wishlist = inject(WishlistService);
   ratingService = inject(RatingService);
   signature = inject(SignatureService);
+  imageSearch = inject(ImageSearchService);
 
   product = signal<Product | null>(null);
   selectedSize = signal<number>(0);
@@ -33,18 +35,53 @@ export class ProductDetailComponent implements OnInit {
   addingToCart = signal(false);
   showPreOrder = signal(false);
   signaturePop = signal(false);
+  imageError = signal(false);
+
+  /** Resolved image URL for this product */
+  imageUrl = computed(() => {
+    const p = this.product();
+    return p ? this.imageSearch.getImageUrl(p) : '';
+  });
+
+  /** Whether to show the gradient fallback */
+  showImageFallback = computed(() => !this.imageUrl() || this.imageError());
+
+  /** Scent-family-based gradient */
+  fallbackGradient = computed(() => {
+    const p = this.product();
+    if (!p) return '';
+    const gradients: Record<string, string> = {
+      'Floral':    'linear-gradient(135deg, #fce4ec, #f8bbd0)',
+      'Woody':     'linear-gradient(135deg, #efebe9, #d7ccc8)',
+      'Oriental':  'linear-gradient(135deg, #fff3e0, #ffe0b2)',
+      'Fresh':     'linear-gradient(135deg, #e0f7fa, #b2ebf2)',
+      'Gourmand':  'linear-gradient(135deg, #fbe9e7, #ffccbc)',
+      'Chypre':    'linear-gradient(135deg, #f1f8e9, #dcedc8)',
+    };
+    return gradients[p.scent_family] || 'linear-gradient(135deg, #fafafa, #f0f0f0)';
+  });
+
+  constructor() {
+    // Auto-resolve image when product is set
+    effect(() => {
+      const p = this.product();
+      if (p) {
+        this.imageError.set(false);
+        this.imageSearch.queueResolve(p);
+      }
+    });
+  }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.productService.getById(id).subscribe(p => {
-        if (p) {
-          this.product.set(p);
-          const firstAvailable = p.sizes.find(s => s.available) || p.sizes[0];
-          this.selectedSize.set(firstAvailable.ml);
-          this.currentPrice.set(firstAvailable.price);
-        }
-      });
+      const p = this.productService.getById(id);
+      if (p) {
+        this.product.set(p);
+        const firstAvailable = p.sizes.find(s => s.available) || p.sizes[0];
+        this.selectedSize.set(firstAvailable.ml);
+        this.currentPrice.set(firstAvailable.price);
+      }
     }
   }
 
