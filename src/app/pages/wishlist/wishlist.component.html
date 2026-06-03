@@ -1,0 +1,40 @@
+<app-navbar></app-navbar>
+
+<section class="wishlist">
+  <button class="wishlist__back" (click)="goBack()" aria-label="Go back">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path d="M19 12H5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M12 19L5 12L12 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <div class="wishlist__header">
+    <h1 class="wishlist__title">Wishlist</h1>
+    <div class="wishlist__label">
+      <span class="wishlist__line"></span>
+      <span class="wishlist__label-text">{{ wishlistProducts().length }} {{ wishlistProducts().length === 1 ? 'ITEM' : 'ITEMS' }}</span>
+    </div>
+  </div>
+
+  @if (wishlistProducts().length > 0) {
+    <div class="wishlist__grid">
+      @for (product of wishlistProducts(); track product.id; let i = $index) {
+        <app-product-card [product]="product" [animationDelay]="i * 60"></app-product-card>
+      }
+    </div>
+  } @else {
+    <div class="wishlist__empty">
+      <div class="wishlist__empty-icon">
+        <svg width="48" height="44" viewBox="0 0 20 18" fill="none">
+          <path d="M10 17.5C10 17.5 1 12 1 6C1 3.23858 3.23858 1 6 1C7.74 1 9.26 1.93 10 3.33C10.74 1.93 12.26 1 14 1C16.7614 1 19 3.23858 19 6C19 12 10 17.5 10 17.5Z"
+                stroke="#E0E0E0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <p class="wishlist__empty-title">Your wishlist is empty</p>
+      <p class="wishlist__empty-desc">Browse our collections and tap the heart icon to save fragrances you love.</p>
+      <a class="wishlist__browse-btn" routerLink="/storefront">BROWSE COLLECTION</a>
+    </div>
+  }
+</section>
+
+<app-footer></app-footer>

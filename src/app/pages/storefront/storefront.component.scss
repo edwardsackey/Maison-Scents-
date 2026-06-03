@@ -367,14 +367,14 @@
 .menu-drawer {
   position: fixed;
   top: 0;
-  right: 0;
+  left: 0;
   width: 80%;
   max-width: 320px;
   height: 100%;
   background: $color-bg;
   z-index: $z-drawer;
   padding: $space-xl $space-md;
-  transform: translateX(100%);
+  transform: translateX(-100%);
   transition: transform 300ms ease;
   pointer-events: none;
 
