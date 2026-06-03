@@ -23,6 +23,7 @@ export class AdminProductsComponent {
     scent_family: '', description: '',
     top_notes: '', heart_notes: '', base_notes: '',
     size30: 0, size50: 0, size100: 0,
+    avail30: true, avail50: true, avail100: true,
     stock_quantity: 0, delivery_days: 3,
     is_new: false, is_featured: false, image: ''
   };
@@ -45,6 +46,9 @@ export class AdminProductsComponent {
       size30: p.sizes[0]?.price || 0,
       size50: p.sizes[1]?.price || 0,
       size100: p.sizes[2]?.price || 0,
+      avail30: p.sizes[0]?.available ?? true,
+      avail50: p.sizes[1]?.available ?? true,
+      avail100: p.sizes[2]?.available ?? true,
       stock_quantity: p.stock_quantity, delivery_days: p.delivery_days,
       is_new: p.is_new, is_featured: p.is_featured,
       image: p.images[0] || ''
@@ -61,9 +65,9 @@ export class AdminProductsComponent {
       description: this.form.description,
       images: [this.form.image || 'assets/images/Khamarah.jpg'],
       sizes: [
-        { ml: 30, price: this.form.size30 },
-        { ml: 50, price: this.form.size50 },
-        { ml: 100, price: this.form.size100 }
+        { ml: 30, price: this.form.size30, available: this.form.avail30 },
+        { ml: 50, price: this.form.size50, available: this.form.avail50 },
+        { ml: 100, price: this.form.size100, available: this.form.avail100 }
       ],
       stock_quantity: this.form.stock_quantity,
       is_featured: this.form.is_featured,
@@ -125,6 +129,7 @@ export class AdminProductsComponent {
       scent_family: '', description: '',
       top_notes: '', heart_notes: '', base_notes: '',
       size30: 0, size50: 0, size100: 0,
+      avail30: true, avail50: true, avail100: true,
       stock_quantity: 0, delivery_days: 3,
       is_new: false, is_featured: false, image: ''
     };

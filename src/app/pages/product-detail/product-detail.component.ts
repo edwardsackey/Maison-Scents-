@@ -40,8 +40,9 @@ export class ProductDetailComponent implements OnInit {
       this.productService.getById(id).subscribe(p => {
         if (p) {
           this.product.set(p);
-          this.selectedSize.set(p.sizes[0].ml);
-          this.currentPrice.set(p.sizes[0].price);
+          const firstAvailable = p.sizes.find(s => s.available) || p.sizes[0];
+          this.selectedSize.set(firstAvailable.ml);
+          this.currentPrice.set(firstAvailable.price);
         }
       });
     }

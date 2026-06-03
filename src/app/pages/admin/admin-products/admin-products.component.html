@@ -103,10 +103,32 @@
         <input type="text" [(ngModel)]="form.base_notes">
       </label>
 
-      <div class="field-row">
-        <label class="field"><span>30ml Price</span><input type="number" [(ngModel)]="form.size30"></label>
-        <label class="field"><span>50ml Price</span><input type="number" [(ngModel)]="form.size50"></label>
-        <label class="field"><span>100ml Price</span><input type="number" [(ngModel)]="form.size100"></label>
+      <h3 class="form-section-title">Sizes &amp; Availability</h3>
+      <div class="size-row">
+        <div class="size-row__item" [class.unavailable]="!form.avail30">
+          <label class="field"><span>30ml Price</span><input type="number" [(ngModel)]="form.size30"></label>
+          <label class="size-row__toggle">
+            <input type="checkbox" [(ngModel)]="form.avail30">
+            <span class="size-row__switch"></span>
+            <span class="size-row__status">{{ form.avail30 ? 'Available' : 'Unavailable' }}</span>
+          </label>
+        </div>
+        <div class="size-row__item" [class.unavailable]="!form.avail50">
+          <label class="field"><span>50ml Price</span><input type="number" [(ngModel)]="form.size50"></label>
+          <label class="size-row__toggle">
+            <input type="checkbox" [(ngModel)]="form.avail50">
+            <span class="size-row__switch"></span>
+            <span class="size-row__status">{{ form.avail50 ? 'Available' : 'Unavailable' }}</span>
+          </label>
+        </div>
+        <div class="size-row__item" [class.unavailable]="!form.avail100">
+          <label class="field"><span>100ml Price</span><input type="number" [(ngModel)]="form.size100"></label>
+          <label class="size-row__toggle">
+            <input type="checkbox" [(ngModel)]="form.avail100">
+            <span class="size-row__switch"></span>
+            <span class="size-row__status">{{ form.avail100 ? 'Available' : 'Unavailable' }}</span>
+          </label>
+        </div>
       </div>
 
       <div class="field-row">

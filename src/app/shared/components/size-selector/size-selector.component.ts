@@ -14,6 +14,7 @@ export class SizeSelectorComponent {
   sizeChange = output<ProductSize>();
 
   selectSize(size: ProductSize): void {
+    if (!size.available) return;
     this.selected.set(size.ml);
     this.sizeChange.emit(size);
   }

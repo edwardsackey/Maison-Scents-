@@ -1,6 +1,7 @@
 export interface ProductSize {
   ml: number;
   price: number;
+  available: boolean;
 }
 
 export interface ScentNotes {
