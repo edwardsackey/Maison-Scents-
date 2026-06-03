@@ -10,41 +10,9 @@
       </svg>
     </button>
 
-    <!-- Product Image — swipe to rotate -->
-    <div class="detail__image-wrap"
-         [class.detail__image-wrap--prism]="p.images.length > 1"
-         (touchstart)="onRotateStart($event)"
-         (touchmove)="onRotateMove($event)"
-         (touchend)="onRotateEnd()"
-         (mousedown)="onMouseStart($event)">
-
-      @if (p.images.length > 1) {
-        <!-- 3D Prism: front, right-side, back, left-side -->
-        <div class="detail__prism" [style.transform]="'rotateY(' + rotateAngle() + 'deg)'">
-          <div class="detail__prism-face detail__prism-face--front">
-            <img [src]="p.images[0]" [alt]="p.name + ' front'" class="detail__image">
-          </div>
-          <div class="detail__prism-face detail__prism-face--right"></div>
-          <div class="detail__prism-face detail__prism-face--back">
-            <img [src]="p.images[1]" [alt]="p.name + ' back'" class="detail__image">
-          </div>
-          <div class="detail__prism-face detail__prism-face--left"></div>
-        </div>
-      } @else {
-        <!-- Single image rotation -->
-        <div class="detail__image-3d" [style.transform]="'rotateY(' + rotateAngle() + 'deg)'">
-          <img [src]="p.images[0]" [alt]="p.name" class="detail__image">
-        </div>
-      }
-
-      <div class="detail__swipe-hint" [class.hidden]="hasInteracted()">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M5 12H19"/>
-          <path d="M15 8l4 4-4 4"/>
-          <path d="M9 8l-4 4 4 4"/>
-        </svg>
-        <span>Swipe to rotate</span>
-      </div>
+    <!-- Product Image -->
+    <div class="detail__image-wrap">
+      <img [src]="p.images[0]" [alt]="p.name" class="detail__image">
     </div>
 
     <!-- Product Info -->

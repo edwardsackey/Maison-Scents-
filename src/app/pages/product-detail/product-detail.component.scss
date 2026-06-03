@@ -23,26 +23,11 @@
     aspect-ratio: 3/4;
     overflow: hidden;
     background: #FFFFFF;
-    perspective: 1200px;
-    cursor: grab;
-    user-select: none;
-    touch-action: pan-y;
-
-    &:active {
-      cursor: grabbing;
-    }
 
     @include respond-to(tablet) {
       aspect-ratio: 4/3;
       max-height: 500px;
     }
-  }
-
-  &__image-3d {
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    will-change: transform;
   }
 
   &__image {
@@ -51,86 +36,6 @@
     object-fit: contain;
     padding: 48px 12px 12px;
     mix-blend-mode: multiply;
-    pointer-events: none;
-  }
-
-  // 3D Prism (for products with multiple images)
-  // Depth = 60px gives a bottle-like thickness
-  $prism-depth: 60px;
-
-  &__image-wrap--prism {
-    perspective: 1400px;
-  }
-
-  &__prism {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    will-change: transform;
-  }
-
-  &__prism-face {
-    position: absolute;
-    inset: 0;
-    backface-visibility: hidden;
-    overflow: hidden;
-
-    // Front face
-    &--front {
-      transform: translateZ(calc($prism-depth / 2));
-      background: #FFFFFF;
-    }
-
-    // Right side edge
-    &--right {
-      width: $prism-depth;
-      left: auto;
-      right: 0;
-      transform: rotateY(90deg) translateZ(0px);
-      transform-origin: right center;
-      background: linear-gradient(to right, #f0f0f0, #e8e8e8, #f0f0f0);
-    }
-
-    // Back face (holds second image)
-    &--back {
-      transform: rotateY(180deg) translateZ(calc($prism-depth / 2));
-      background: #FFFFFF;
-    }
-
-    // Left side edge
-    &--left {
-      width: $prism-depth;
-      right: auto;
-      left: 0;
-      transform: rotateY(-90deg) translateZ(0px);
-      transform-origin: left center;
-      background: linear-gradient(to left, #f0f0f0, #e8e8e8, #f0f0f0);
-    }
-  }
-
-  &__swipe-hint {
-    position: absolute;
-    bottom: $space-md;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 14px;
-    background: rgba(0, 0, 0, 0.06);
-    border-radius: 20px;
-    color: $color-text-secondary;
-    font-size: $fs-xs;
-    font-weight: $fw-medium;
-    letter-spacing: $ls-wide;
-    animation: hint-pulse 2s ease-in-out infinite;
-    transition: opacity 400ms ease;
-    pointer-events: none;
-
-    &.hidden {
-      opacity: 0;
-    }
   }
 
   &__info {
@@ -374,7 +279,3 @@
   }
 }
 
-@keyframes hint-pulse {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 1; }
-}
