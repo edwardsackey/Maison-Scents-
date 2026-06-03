@@ -20,7 +20,18 @@
       <div class="detail__brand-row">
         <span class="detail__brand">{{ p.brand }}</span>
         <span class="detail__dot"></span>
-        <span class="detail__tag">SIGNATURE</span>
+        <button class="detail__sig-btn"
+                [class.active]="isSignature"
+                [class.pop]="signaturePop()"
+                (click)="toggleSignature()"
+                aria-label="Toggle signature scent">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L14.09 8.26L20.18 8.64L15.54 12.74L17.09 19.02L12 15.77L6.91 19.02L8.46 12.74L3.82 8.64L9.91 8.26L12 2Z"
+                  [attr.fill]="isSignature ? '#1A1A1A' : 'none'"
+                  stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>SIGNATURE</span>
+        </button>
       </div>
 
       <h1 class="detail__name">{{ p.name }}</h1>

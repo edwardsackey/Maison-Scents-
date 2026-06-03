@@ -1,0 +1,329 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// Hero
+.hero {
+  padding: $space-lg $space-md $space-md;
+
+  &__back {
+    @include touch-target;
+    @include flex-center;
+    margin-bottom: $space-md;
+  }
+
+  &__content {
+    text-align: center;
+    margin-bottom: $space-xl;
+  }
+
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: $radius-round;
+    background: $color-surface;
+    margin-bottom: $space-md;
+    animation: icon-float 4s ease-in-out infinite;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $fs-3xl;
+    font-weight: $fw-regular;
+    color: $color-text-primary;
+    margin-bottom: $space-sm;
+    font-style: italic;
+
+    @include respond-to(tablet) {
+      font-size: $fs-4xl;
+    }
+  }
+
+  &__label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $space-sm;
+    margin-bottom: $space-lg;
+  }
+
+  &__line {
+    width: 40px;
+    height: 1px;
+    background: $color-text-secondary;
+  }
+
+  &__label-text {
+    font-size: $fs-xs;
+    font-weight: $fw-medium;
+    letter-spacing: $ls-widest;
+    color: $color-text-secondary;
+  }
+
+  &__quote {
+    font-family: $font-heading;
+    font-size: $fs-lg;
+    font-weight: $fw-regular;
+    font-style: italic;
+    color: $color-text-primary;
+    line-height: $lh-relaxed;
+    max-width: 420px;
+    margin: 0 auto $space-lg;
+
+    @include respond-to(tablet) {
+      font-size: $fs-xl;
+    }
+  }
+
+  &__philosophy {
+    max-width: 380px;
+    margin: 0 auto;
+  }
+
+  &__philosophy-text {
+    font-size: $fs-sm;
+    color: $color-text-secondary;
+    line-height: $lh-relaxed;
+  }
+
+  &__stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $space-lg;
+    padding: $space-lg 0;
+  }
+
+  &__stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+
+  &__stat-number {
+    font-family: $font-heading;
+    font-size: $fs-xl;
+    font-weight: $fw-regular;
+    color: $color-text-primary;
+  }
+
+  &__stat-label {
+    font-size: $fs-xs;
+    font-weight: $fw-medium;
+    letter-spacing: $ls-wider;
+    color: $color-text-secondary;
+    text-transform: uppercase;
+  }
+
+  &__stat-divider {
+    width: 1px;
+    height: 36px;
+    background: $color-border;
+  }
+
+  &__divider {
+    height: 1px;
+    background: $color-border;
+  }
+}
+
+// Collection
+.collection {
+  padding: $space-lg $space-md;
+  min-height: 40vh;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: $space-md;
+    padding: $space-md 0;
+    border-bottom: 1px solid $color-surface;
+    animation: item-enter 400ms ease both;
+    transition: opacity 300ms ease, transform 300ms ease;
+
+    &.removing {
+      opacity: 0;
+      transform: translateX(-40px);
+    }
+  }
+
+  &__image-wrap {
+    width: 72px;
+    height: 72px;
+    border-radius: $radius-lg;
+    overflow: hidden;
+    background: #FFFFFF;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 8px;
+    mix-blend-mode: multiply;
+  }
+
+  &__info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    cursor: pointer;
+  }
+
+  &__brand {
+    font-size: $fs-xs;
+    font-weight: $fw-medium;
+    color: $color-text-secondary;
+    text-transform: uppercase;
+    letter-spacing: $ls-wide;
+  }
+
+  &__name {
+    font-family: $font-heading;
+    font-size: $fs-md;
+    font-weight: $fw-regular;
+    color: $color-text-primary;
+    @include line-clamp(1);
+  }
+
+  &__family {
+    font-size: $fs-xs;
+    color: $color-text-secondary;
+    font-style: italic;
+  }
+
+  &__remove {
+    @include flex-center;
+    width: 36px;
+    height: 36px;
+    border-radius: $radius-round;
+    flex-shrink: 0;
+    transition: background $transition-fast;
+
+    &:hover {
+      background: $color-surface;
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+
+  // Tip
+  &__tip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $space-sm;
+    padding: $space-xl $space-md;
+    font-size: $fs-xs;
+    color: $color-text-secondary;
+    text-align: center;
+  }
+
+  // Empty State
+  &__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: $space-3xl $space-md;
+  }
+
+  &__empty-stars {
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+    margin-bottom: $space-xl;
+  }
+
+  &__empty-star {
+    opacity: 0.5;
+
+    &--1 {
+      animation: star-drift 3s ease-in-out infinite;
+    }
+
+    &--2 {
+      animation: star-drift 3s ease-in-out 0.5s infinite;
+    }
+
+    &--3 {
+      animation: star-drift 3s ease-in-out 1s infinite;
+    }
+  }
+
+  &__empty-title {
+    font-family: $font-heading;
+    font-size: $fs-xl;
+    font-weight: $fw-regular;
+    color: $color-text-primary;
+    margin-bottom: $space-sm;
+  }
+
+  &__empty-desc {
+    font-size: $fs-sm;
+    color: $color-text-secondary;
+    line-height: $lh-relaxed;
+    max-width: 300px;
+    margin-bottom: $space-xl;
+
+    strong {
+      color: $color-text-primary;
+      font-weight: $fw-medium;
+    }
+  }
+
+  &__browse-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: $space-md $space-xl;
+    background: $color-cta;
+    color: $color-cta-text;
+    font-size: $fs-sm;
+    font-weight: $fw-semibold;
+    letter-spacing: $ls-wider;
+    min-height: 48px;
+    transition: transform $transition-fast;
+
+    &:active {
+      transform: scale(0.97);
+    }
+  }
+}
+
+// Animations
+@keyframes icon-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes item-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes star-drift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}

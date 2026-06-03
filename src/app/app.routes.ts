@@ -28,6 +28,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/wishlist/wishlist.component').then(m => m.WishlistComponent)
   },
   {
+    path: 'signature-scents',
+    loadComponent: () => import('./pages/signature-scents/signature-scents.component').then(m => m.SignatureScentsComponent)
+  },
+  {
     path: 'cart',
     loadComponent: () => import('./pages/cart/cart.component').then(m => m.CartComponent)
   },
