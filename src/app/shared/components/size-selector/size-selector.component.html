@@ -2,8 +2,13 @@
   @for (size of sizes(); track size.ml) {
     <button class="sizes__pill"
             [class.active]="selected() === size.ml"
+            [class.unavailable]="!size.available"
+            [disabled]="!size.available"
             (click)="selectSize(size)">
-      {{ size.ml }}ml
+      <span class="sizes__ml">{{ size.ml }}ml</span>
+      @if (!size.available) {
+        <span class="sizes__out">Unavailable</span>
+      }
     </button>
   }
 </div>

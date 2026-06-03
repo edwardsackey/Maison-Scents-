@@ -6,6 +6,11 @@
 
   &__pill {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
     padding: $space-sm $space-md;
     border: 1px solid $color-border;
     border-radius: $radius-md;
@@ -23,8 +28,22 @@
       border-color: $color-cta;
     }
 
-    &:hover:not(.active) {
+    &:hover:not(.active):not(.unavailable) {
       border-color: $color-text-primary;
     }
+
+    &.unavailable {
+      opacity: 0.35;
+      cursor: not-allowed;
+      border-style: dashed;
+    }
+  }
+
+  &__out {
+    font-size: 9px;
+    font-weight: $fw-regular;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: $color-text-secondary;
   }
 }

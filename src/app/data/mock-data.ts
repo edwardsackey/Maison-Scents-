@@ -1,4 +1,4 @@
-import { Product } from '../core/models/product.model';
+﻿import { Product } from '../core/models/product.model';
 import { Order } from '../core/models/order.model';
 
 export const MOCK_PRODUCTS: Product[] = [
@@ -12,9 +12,9 @@ export const MOCK_PRODUCTS: Product[] = [
     description: 'A captivating blend of warmth and mystery, Khamrah weaves rich amber with delicate florals for an unforgettable signature.',
     images: ['assets/images/Khamarah-Lattafa.png'],
     sizes: [
-      { ml: 30, price: 250 },
-      { ml: 50, price: 380 },
-      { ml: 100, price: 550 }
+      { ml: 30, price: 250, available: true },
+      { ml: 50, price: 380, available: true },
+      { ml: 100, price: 550, available: true }
     ],
     stock_quantity: 25,
     is_featured: true,
@@ -41,9 +41,9 @@ export const MOCK_PRODUCTS: Product[] = [
     description: 'An elegant floral composition that captures the essence of femininity with soft petals and creamy sandalwood.',
     images: ['assets/images/Hayati.jpg'],
     sizes: [
-      { ml: 30, price: 200 },
-      { ml: 50, price: 320 },
-      { ml: 100, price: 480 }
+      { ml: 30, price: 200, available: true },
+      { ml: 50, price: 320, available: true },
+      { ml: 100, price: 480, available: true }
     ],
     stock_quantity: 18,
     is_featured: false,
@@ -69,9 +69,9 @@ export const MOCK_PRODUCTS: Product[] = [
     description: 'A couture fragrance blending jasmine grandiflorum with warm vanilla bourbon for modern elegance.',
     images: ['assets/images/Valentino-1.png'],
     sizes: [
-      { ml: 30, price: 650 },
-      { ml: 50, price: 920 },
-      { ml: 100, price: 1350 }
+      { ml: 30, price: 650, available: true },
+      { ml: 50, price: 920, available: true },
+      { ml: 100, price: 1350, available: true }
     ],
     stock_quantity: 0,
     is_featured: false,
@@ -97,9 +97,9 @@ export const MOCK_PRODUCTS: Product[] = [
     description: 'An intoxicating gourmand fragrance with creamy notes of caramel and exotic spices for the bold woman.',
     images: ['assets/images/Lattafa-Hayati.png'],
     sizes: [
-      { ml: 30, price: 220 },
-      { ml: 50, price: 340 },
-      { ml: 100, price: 500 }
+      { ml: 30, price: 220, available: true },
+      { ml: 50, price: 340, available: true },
+      { ml: 100, price: 500, available: true }
     ],
     stock_quantity: 30,
     is_featured: false,
@@ -125,9 +125,9 @@ export const MOCK_PRODUCTS: Product[] = [
     description: 'A sophisticated evening fragrance with rich oud and delicate rose that commands attention after dark.',
     images: ['assets/images/9pm-detail.png', 'assets/images/Afnan-9pm.png'],
     sizes: [
-      { ml: 30, price: 280 },
-      { ml: 50, price: 420 },
-      { ml: 100, price: 600 }
+      { ml: 30, price: 280, available: true },
+      { ml: 50, price: 420, available: true },
+      { ml: 100, price: 600, available: true }
     ],
     stock_quantity: 12,
     is_featured: true,
@@ -153,9 +153,9 @@ export const MOCK_PRODUCTS: Product[] = [
     description: 'A timeless floral fragrance that embodies elegance and femininity with a fresh bouquet of roses and peony.',
     images: ['assets/images/Miss-Dior.jpg'],
     sizes: [
-      { ml: 30, price: 750 },
-      { ml: 50, price: 1100 },
-      { ml: 100, price: 1600 }
+      { ml: 30, price: 750, available: true },
+      { ml: 50, price: 1100, available: true },
+      { ml: 100, price: 1600, available: true }
     ],
     stock_quantity: 10,
     is_featured: true,
@@ -178,12 +178,12 @@ export const MOCK_PRODUCTS: Product[] = [
     brand: 'Yves Saint Laurent',
     gender: 'female',
     scent_family: 'Floral',
-    description: 'A daring and romantic fragrance inspired by the city of love — bold, passionate, and utterly modern.',
+    description: 'A daring and romantic fragrance inspired by the city of love â€” bold, passionate, and utterly modern.',
     images: ['assets/images/Yves-Saint-Laurent-Mon-Paris-Eau-de-Parfum.png'],
     sizes: [
-      { ml: 30, price: 680 },
-      { ml: 50, price: 980 },
-      { ml: 100, price: 1450 }
+      { ml: 30, price: 680, available: true },
+      { ml: 50, price: 980, available: true },
+      { ml: 100, price: 1450, available: true }
     ],
     stock_quantity: 14,
     is_featured: false,
@@ -209,9 +209,9 @@ export const MOCK_PRODUCTS: Product[] = [
     description: 'A dreamy gourmand fragrance that wraps you in layers of warm vanilla and exotic spices. Irresistibly cozy.',
     images: ['assets/images/Kay-Ali.png'],
     sizes: [
-      { ml: 30, price: 350 },
-      { ml: 50, price: 520 },
-      { ml: 100, price: 780 }
+      { ml: 30, price: 350, available: true },
+      { ml: 50, price: 520, available: true },
+      { ml: 100, price: 780, available: true }
     ],
     stock_quantity: 8,
     is_featured: false,
@@ -230,16 +230,16 @@ export const MOCK_PRODUCTS: Product[] = [
   },
   {
     id: 'f9',
-    name: 'Éclaire',
+    name: 'Ã‰claire',
     brand: 'Lattafa',
     gender: 'female',
     scent_family: 'Oriental',
     description: 'A radiant oriental composition that balances sweet amber with crisp florals for a luminous, modern scent.',
     images: ['assets/images/Lataffa-Eclaire.jpg'],
     sizes: [
-      { ml: 30, price: 230 },
-      { ml: 50, price: 350 },
-      { ml: 100, price: 520 }
+      { ml: 30, price: 230, available: true },
+      { ml: 50, price: 350, available: true },
+      { ml: 100, price: 520, available: true }
     ],
     stock_quantity: 22,
     is_featured: false,
@@ -265,9 +265,9 @@ export const MOCK_PRODUCTS: Product[] = [
     description: 'A vibrant and youthful fresh fragrance that captures the spirit of effortless beauty with floral brightness.',
     images: ['assets/images/Zara-1.png'],
     sizes: [
-      { ml: 30, price: 120 },
-      { ml: 50, price: 180 },
-      { ml: 100, price: 280 }
+      { ml: 30, price: 120, available: true },
+      { ml: 50, price: 180, available: true },
+      { ml: 100, price: 280, available: true }
     ],
     stock_quantity: 35,
     is_featured: false,
@@ -294,9 +294,9 @@ export const MOCK_PRODUCTS: Product[] = [
     description: 'An extraordinary oud-based composition that takes you on a journey through desert nights and starlit skies.',
     images: ['assets/images/Ombre-Normade-1.png'],
     sizes: [
-      { ml: 30, price: 1800 },
-      { ml: 50, price: 2800 },
-      { ml: 100, price: 4200 }
+      { ml: 30, price: 1800, available: true },
+      { ml: 50, price: 2800, available: true },
+      { ml: 100, price: 4200, available: true }
     ],
     stock_quantity: 8,
     is_featured: false,
@@ -323,9 +323,9 @@ export const MOCK_PRODUCTS: Product[] = [
     description: 'A visionary citrus-woody creation that pushes boundaries with its unique blend of tea and cedarwood.',
     images: ['assets/images/Imagination-1.png'],
     sizes: [
-      { ml: 30, price: 1600 },
-      { ml: 50, price: 2500 },
-      { ml: 100, price: 3800 }
+      { ml: 30, price: 1600, available: true },
+      { ml: 50, price: 2500, available: true },
+      { ml: 100, price: 3800, available: true }
     ],
     stock_quantity: 5,
     is_featured: false,
@@ -351,9 +351,9 @@ export const MOCK_PRODUCTS: Product[] = [
     description: 'A bold aquatic fragrance that embodies masculine energy with ocean breeze and woody depth.',
     images: ['assets/images/Hawas-fire-1.png'],
     sizes: [
-      { ml: 30, price: 300 },
-      { ml: 50, price: 450 },
-      { ml: 100, price: 650 }
+      { ml: 30, price: 300, available: true },
+      { ml: 50, price: 450, available: true },
+      { ml: 100, price: 650, available: true }
     ],
     stock_quantity: 0,
     is_featured: false,
@@ -379,9 +379,9 @@ export const MOCK_PRODUCTS: Product[] = [
     description: 'A textured and bold leather fragrance that captures rugged American landscapes with refinement.',
     images: ['assets/images/Tomford-1.png'],
     sizes: [
-      { ml: 30, price: 900 },
-      { ml: 50, price: 1400 },
-      { ml: 100, price: 2100 }
+      { ml: 30, price: 900, available: true },
+      { ml: 50, price: 1400, available: true },
+      { ml: 100, price: 2100, available: true }
     ],
     stock_quantity: 15,
     is_featured: false,
@@ -407,9 +407,9 @@ export const MOCK_PRODUCTS: Product[] = [
     description: 'An addictive coffee-infused fragrance blending Arabic qahwa with sweet spices and dark chocolate.',
     images: ['assets/images/Khamra-Qahwa1.jpg'],
     sizes: [
-      { ml: 30, price: 260 },
-      { ml: 50, price: 390 },
-      { ml: 100, price: 560 }
+      { ml: 30, price: 260, available: true },
+      { ml: 50, price: 390, available: true },
+      { ml: 100, price: 560, available: true }
     ],
     stock_quantity: 20,
     is_featured: false,
@@ -422,7 +422,7 @@ export const MOCK_PRODUCTS: Product[] = [
       base: ['Vanilla', 'Sandalwood', 'Benzoin']
     },
     ratings: [
-      { user: 'Kwabena R.', stars: 5, review: 'Smells like a luxurious café. Addictive scent.' },
+      { user: 'Kwabena R.', stars: 5, review: 'Smells like a luxurious cafÃ©. Addictive scent.' },
       { user: 'Papa K.', stars: 4, review: 'Unique and cozy. Perfect for cool evenings.' }
     ]
   }
@@ -585,3 +585,4 @@ export const MOCK_ORDERS: Order[] = [
     estimatedDelivery: '31 May - 2 Jun'
   }
 ];
+
