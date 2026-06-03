@@ -1,0 +1,123 @@
+<app-navbar></app-navbar>
+
+<!-- Hero Section -->
+<section class="hero">
+  <button class="hero__back" (click)="goBack()" aria-label="Go back">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path d="M19 12H5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M12 19L5 12L12 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <div class="hero__content">
+    <div class="hero__icon">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2L14.09 8.26L20.18 8.64L15.54 12.74L17.09 19.02L12 15.77L6.91 19.02L8.46 12.74L3.82 8.64L9.91 8.26L12 2Z"
+              fill="#1A1A1A" stroke="#1A1A1A" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <h1 class="hero__title">Your Signature</h1>
+    <div class="hero__label">
+      <span class="hero__line"></span>
+      <span class="hero__label-text">SCENT COLLECTION</span>
+      <span class="hero__line"></span>
+    </div>
+
+    <p class="hero__quote">
+      A signature scent is more than fragrance &mdash; it is the invisible thread
+      of every memory you leave behind.
+    </p>
+
+    <div class="hero__philosophy">
+      <p class="hero__philosophy-text">
+        The fragrances you choose become part of your story. They linger in rooms after you leave,
+        on letters you send, in the minds of those who know you. Curate yours with intention.
+      </p>
+    </div>
+  </div>
+
+  <div class="hero__stats">
+    <div class="hero__stat">
+      <span class="hero__stat-number">{{ signatureProducts().length }}</span>
+      <span class="hero__stat-label">{{ signatureProducts().length === 1 ? 'Scent' : 'Scents' }}</span>
+    </div>
+    <div class="hero__stat-divider"></div>
+    <div class="hero__stat">
+      <span class="hero__stat-number">{{ signatureProducts().length > 0 ? (signatureProducts().length >= 3 ? 'Refined' : 'Growing') : 'Empty' }}</span>
+      <span class="hero__stat-label">Collection</span>
+    </div>
+  </div>
+
+  <div class="hero__divider"></div>
+</section>
+
+<!-- Signature Collection -->
+<section class="collection">
+  @if (signatureProducts().length > 0) {
+    <div class="collection__list">
+      @for (product of signatureProducts(); track product.id; let i = $index) {
+        <div class="collection__item"
+             [class.removing]="removingId() === product.id"
+             [style.animation-delay]="i * 80 + 'ms'">
+
+          <div class="collection__image-wrap" (click)="viewProduct(product)">
+            <img [src]="product.images[0]" [alt]="product.name" class="collection__image">
+          </div>
+
+          <div class="collection__info" (click)="viewProduct(product)">
+            <span class="collection__brand">{{ product.brand }}</span>
+            <span class="collection__name">{{ product.name }}</span>
+            <span class="collection__family">{{ product.scent_family }}</span>
+          </div>
+
+          <button class="collection__remove" (click)="removeProduct(product.id)" aria-label="Remove from signature">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M18 6L6 18" stroke="#6B6B6B" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M6 6L18 18" stroke="#6B6B6B" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      }
+    </div>
+
+    <div class="collection__tip">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2L14.09 8.26L20.18 8.64L15.54 12.74L17.09 19.02L12 15.77L6.91 19.02L8.46 12.74L3.82 8.64L9.91 8.26L12 2Z"
+              fill="none" stroke="#6B6B6B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Tap the star next to any fragrance name to add it here</span>
+    </div>
+  } @else {
+    <!-- Empty State -->
+    <div class="collection__empty">
+      <div class="collection__empty-stars">
+        <svg class="collection__empty-star collection__empty-star--1" width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2L14.09 8.26L20.18 8.64L15.54 12.74L17.09 19.02L12 15.77L6.91 19.02L8.46 12.74L3.82 8.64L9.91 8.26L12 2Z"
+                stroke="#E0E0E0" stroke-width="1.5"/>
+        </svg>
+        <svg class="collection__empty-star collection__empty-star--2" width="28" height="28" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2L14.09 8.26L20.18 8.64L15.54 12.74L17.09 19.02L12 15.77L6.91 19.02L8.46 12.74L3.82 8.64L9.91 8.26L12 2Z"
+                stroke="#E0E0E0" stroke-width="1.5"/>
+        </svg>
+        <svg class="collection__empty-star collection__empty-star--3" width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2L14.09 8.26L20.18 8.64L15.54 12.74L17.09 19.02L12 15.77L6.91 19.02L8.46 12.74L3.82 8.64L9.91 8.26L12 2Z"
+                stroke="#E0E0E0" stroke-width="1.5"/>
+        </svg>
+      </div>
+
+      <p class="collection__empty-title">No signature scents yet</p>
+      <p class="collection__empty-desc">
+        Visit a fragrance and tap the
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" style="vertical-align: -1px; margin: 0 2px;">
+          <path d="M12 2L14.09 8.26L20.18 8.64L15.54 12.74L17.09 19.02L12 15.77L6.91 19.02L8.46 12.74L3.82 8.64L9.91 8.26L12 2Z"
+                stroke="#1A1A1A" stroke-width="1.5"/>
+        </svg>
+        <strong>Signature</strong> button to start building your collection.
+      </p>
+      <a class="collection__browse-btn" routerLink="/storefront">EXPLORE FRAGRANCES</a>
+    </div>
+  }
+</section>
+
+<app-footer></app-footer>

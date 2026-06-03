@@ -8,6 +8,7 @@ import { ProductService } from '../../core/services/product.service';
 import { CartService } from '../../core/services/cart.service';
 import { WishlistService } from '../../core/services/wishlist.service';
 import { RatingService } from '../../core/services/rating.service';
+import { SignatureService } from '../../core/services/signature.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -24,6 +25,7 @@ export class ProductDetailComponent implements OnInit {
   cartService = inject(CartService);
   wishlist = inject(WishlistService);
   ratingService = inject(RatingService);
+  signature = inject(SignatureService);
 
   product = signal<Product | null>(null);
   selectedSize = signal<number>(0);
@@ -31,6 +33,7 @@ export class ProductDetailComponent implements OnInit {
   addingToCart = signal(false);
   showPreOrder = signal(false);
   menuOpen = signal(false);
+  signaturePop = signal(false);
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -48,6 +51,19 @@ export class ProductDetailComponent implements OnInit {
   get isWishlisted(): boolean {
     const p = this.product();
     return p ? this.wishlist.isWishlisted(p.id) : false;
+  }
+
+  get isSignature(): boolean {
+    const p = this.product();
+    return p ? this.signature.isSignature(p.id) : false;
+  }
+
+  toggleSignature(): void {
+    const p = this.product();
+    if (!p) return;
+    this.signature.toggle(p.id);
+    this.signaturePop.set(true);
+    setTimeout(() => this.signaturePop.set(false), 500);
   }
 
   get avgRating(): number {
