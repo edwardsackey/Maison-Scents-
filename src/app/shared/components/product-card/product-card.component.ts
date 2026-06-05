@@ -1,8 +1,7 @@
-import { Component, ChangeDetectionStrategy, input, inject, signal, computed, effect } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, inject, signal, computed } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Product } from '../../../core/models/product.model';
 import { WishlistService } from '../../../core/services/wishlist.service';
-import { ImageSearchService } from '../../../core/services/image-search.service';
 
 @Component({
   selector: 'app-product-card',
@@ -17,13 +16,15 @@ export class ProductCardComponent {
   animationDelay = input<number>(0);
 
   wishlist = inject(WishlistService);
-  imageSearch = inject(ImageSearchService);
 
   justToggled = signal(false);
   imageError = signal(false);
 
-  /** Best available image URL (resolved or from DB) */
-  imageUrl = computed(() => this.imageSearch.getImageUrl(this.product()));
+  /** Best available image URL from the product record */
+  imageUrl = computed(() => {
+    const img = this.product().images?.[0];
+    return img && !img.includes('placeholder') ? img : '';
+  });
 
   /** Show gradient fallback when no image or image failed to load */
   showFallback = computed(() => !this.imageUrl() || this.imageError());
@@ -40,15 +41,6 @@ export class ProductCardComponent {
     };
     return gradients[this.product().scent_family] || 'linear-gradient(135deg, #fafafa, #f0f0f0)';
   });
-
-  constructor() {
-    // Auto-resolve placeholder images when this card is rendered
-    effect(() => {
-      const p = this.product();
-      this.imageError.set(false);
-      this.imageSearch.queueResolve(p);
-    });
-  }
 
   get isWishlisted(): boolean {
     return this.wishlist.isWishlisted(this.product().id);

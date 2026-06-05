@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, inject, signal, computed, effect, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, signal, computed, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 import { SizeSelectorComponent } from '../../shared/components/size-selector/size-selector.component';
@@ -9,7 +9,6 @@ import { CartService } from '../../core/services/cart.service';
 import { WishlistService } from '../../core/services/wishlist.service';
 import { RatingService } from '../../core/services/rating.service';
 import { SignatureService } from '../../core/services/signature.service';
-import { ImageSearchService } from '../../core/services/image-search.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -27,7 +26,6 @@ export class ProductDetailComponent implements OnInit {
   wishlist = inject(WishlistService);
   ratingService = inject(RatingService);
   signature = inject(SignatureService);
-  imageSearch = inject(ImageSearchService);
 
   product = signal<Product | null>(null);
   selectedSize = signal<number>(0);
@@ -37,10 +35,12 @@ export class ProductDetailComponent implements OnInit {
   signaturePop = signal(false);
   imageError = signal(false);
 
-  /** Resolved image URL for this product */
+  /** Product image URL */
   imageUrl = computed(() => {
     const p = this.product();
-    return p ? this.imageSearch.getImageUrl(p) : '';
+    if (!p) return '';
+    const img = p.images?.[0];
+    return img && !img.includes('placeholder') ? img : '';
   });
 
   /** Whether to show the gradient fallback */
@@ -60,17 +60,6 @@ export class ProductDetailComponent implements OnInit {
     };
     return gradients[p.scent_family] || 'linear-gradient(135deg, #fafafa, #f0f0f0)';
   });
-
-  constructor() {
-    // Auto-resolve image when product is set
-    effect(() => {
-      const p = this.product();
-      if (p) {
-        this.imageError.set(false);
-        this.imageSearch.queueResolve(p);
-      }
-    });
-  }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');

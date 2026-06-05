@@ -1,0 +1,113 @@
+<app-navbar></app-navbar>
+
+<div class="preview">
+  <button class="preview__back" (click)="goBack()" aria-label="Go back">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path d="M19 12H5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M12 19L5 12L12 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  @if (loading()) {
+    <div class="preview__skeleton">
+      <div class="preview__skeleton-image"></div>
+      <div class="preview__skeleton-line preview__skeleton-line--short"></div>
+      <div class="preview__skeleton-line"></div>
+      <div class="preview__skeleton-line preview__skeleton-line--long"></div>
+    </div>
+  } @else if (error()) {
+    <div class="preview__error">
+      <p class="preview__error-title">We couldn't find details for this fragrance.</p>
+      <p class="preview__error-desc">You can still place a pre-order and we'll source it for you.</p>
+      <button class="preview__error-btn" (click)="goBack()">BACK TO STORE</button>
+    </div>
+  } @else if (catalog(); as c) {
+    <!-- Image -->
+    <div class="preview__image-wrap">
+      @if (c.image_url) {
+        <img [src]="c.image_url" [alt]="c.name" class="preview__image"
+             (error)="onImageError()">
+      } @else {
+        <div class="preview__fallback" [style.background]="fallbackGradient">
+          <span class="preview__fallback-brand">{{ c.brand }}</span>
+          <span class="preview__fallback-name">{{ c.name }}</span>
+        </div>
+      }
+      <span class="preview__source-badge">AI Enriched</span>
+    </div>
+
+    <!-- Info -->
+    <div class="preview__info">
+      <span class="preview__brand">{{ c.brand }}</span>
+      <h1 class="preview__name">{{ c.name }}</h1>
+      @if (c.concentration) {
+        <span class="preview__concentration">{{ c.concentration }}</span>
+      }
+      <p class="preview__desc">{{ c.description }}</p>
+
+      <div class="preview__meta">
+        @if (c.gender) {
+          <span class="preview__meta-item">{{ c.gender === 'male' ? 'For Him' : c.gender === 'female' ? 'For Her' : 'Unisex' }}</span>
+        }
+        @if (c.scent_family) {
+          <span class="preview__dot"></span>
+          <span class="preview__meta-item">{{ c.scent_family }}</span>
+        }
+        @if (c.year_launched) {
+          <span class="preview__dot"></span>
+          <span class="preview__meta-item">{{ c.year_launched }}</span>
+        }
+      </div>
+
+      <div class="preview__divider"></div>
+
+      <!-- Notes -->
+      <h2 class="preview__section-title">The Composition</h2>
+      <div class="preview__notes">
+        @if (c.top_notes?.length) {
+          <div class="preview__note-col">
+            <span class="preview__note-label">TOP</span>
+            @for (note of c.top_notes; track note) {
+              <span class="preview__note-item">{{ note }}</span>
+            }
+          </div>
+        }
+        @if (c.heart_notes?.length) {
+          <div class="preview__note-col">
+            <span class="preview__note-label">HEART</span>
+            @for (note of c.heart_notes; track note) {
+              <span class="preview__note-item">{{ note }}</span>
+            }
+          </div>
+        }
+        @if (c.base_notes?.length) {
+          <div class="preview__note-col">
+            <span class="preview__note-label">BASE</span>
+            @for (note of c.base_notes; track note) {
+              <span class="preview__note-item">{{ note }}</span>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="preview__divider"></div>
+    </div>
+
+    <!-- Pre-order CTA -->
+    <div class="preview__cta">
+      <div class="preview__preorder-info">
+        <p>This fragrance is not currently stocked. Would you like to place a special pre-order?</p>
+        <span>Expected delivery: ~30 days</span>
+      </div>
+      <div class="preview__preorder-actions">
+        <button class="preview__preorder-btn preview__preorder-btn--confirm"
+                [disabled]="saving()" (click)="placePreOrder()">
+          {{ saving() ? 'PLACING ORDER...' : 'PLACE PRE-ORDER' }}
+        </button>
+        <button class="preview__preorder-btn preview__preorder-btn--cancel" (click)="goBack()">
+          CANCEL
+        </button>
+      </div>
+    </div>
+  }
+</div>

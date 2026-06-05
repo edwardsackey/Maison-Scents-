@@ -39,7 +39,90 @@
       <circle cx="11" cy="11" r="8" stroke="#6B6B6B" stroke-width="1.5"/>
       <path d="M21 21L16.65 16.65" stroke="#6B6B6B" stroke-width="1.5" stroke-linecap="round"/>
     </svg>
-    <input type="text" placeholder="Search" [value]="searchQuery()" (input)="onSearch($event)">
+    <input type="text"
+           placeholder="Search any perfume..."
+           [value]="searchQuery()"
+           (input)="onSearch($event)"
+           (focus)="onSearchFocus()"
+           (blur)="onSearchBlur()">
+    @if (smartSearching()) {
+      <span class="filter-bar__spinner"></span>
+    }
+
+    <!-- Smart Search Dropdown -->
+    @if (showDropdown()) {
+      <div class="search-dropdown">
+        @if (inStockResults().length > 0) {
+          <div class="search-dropdown__group">
+            <span class="search-dropdown__label">IN YOUR STORE</span>
+            @for (result of inStockResults(); track result.name) {
+              <button class="search-dropdown__item" (mousedown)="goToResult(result)">
+                <div class="search-dropdown__img-wrap">
+                  @if (result.image) {
+                    <img [src]="result.image" [alt]="result.name" class="search-dropdown__img">
+                  } @else {
+                    <div class="search-dropdown__img-placeholder">
+                      <span>{{ result.brand.charAt(0) }}</span>
+                    </div>
+                  }
+                </div>
+                <div class="search-dropdown__info">
+                  <span class="search-dropdown__name">{{ result.name }}</span>
+                  <span class="search-dropdown__brand">{{ result.brand }}</span>
+                </div>
+                @if (result.price) {
+                  <span class="search-dropdown__price">GHS {{ result.price.toLocaleString() }}</span>
+                }
+              </button>
+            }
+          </div>
+        }
+
+        @if (catalogResults().length > 0) {
+          <div class="search-dropdown__group">
+            <span class="search-dropdown__label">
+              @if (catalogResults()[0].resultType === 'enriched') {
+                SPECIAL ORDER AVAILABLE
+              } @else {
+                FROM OUR CATALOG
+              }
+            </span>
+            @for (result of catalogResults(); track result.name) {
+              <button class="search-dropdown__item" (mousedown)="goToResult(result)">
+                <div class="search-dropdown__img-wrap">
+                  @if (result.image) {
+                    <img [src]="result.image" [alt]="result.name" class="search-dropdown__img">
+                  } @else {
+                    <div class="search-dropdown__img-placeholder">
+                      <span>{{ result.brand.charAt(0) }}</span>
+                    </div>
+                  }
+                </div>
+                <div class="search-dropdown__info">
+                  <span class="search-dropdown__name">{{ result.name }}</span>
+                  <span class="search-dropdown__brand">{{ result.brand }}</span>
+                </div>
+                <span class="search-dropdown__badge">Pre-order</span>
+              </button>
+            }
+          </div>
+        }
+
+        @if (inStockResults().length === 0 && catalogResults().length === 0 && !smartSearching()) {
+          <div class="search-dropdown__empty">
+            <p>Can't find it? We'll source it for you.</p>
+            <span class="search-dropdown__hint">Try a more specific search or request a pre-order</span>
+          </div>
+        }
+
+        @if (smartSearching()) {
+          <div class="search-dropdown__loading">
+            <span class="search-dropdown__spinner-inline"></span>
+            <span>Searching our catalog...</span>
+          </div>
+        }
+      </div>
+    }
   </div>
 </div>
 
@@ -139,4 +222,3 @@
     </button>
   </div>
 </aside>
-

@@ -4,7 +4,6 @@ import { NavbarComponent } from '../../shared/components/navbar/navbar.component
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { SignatureService } from '../../core/services/signature.service';
 import { ProductService } from '../../core/services/product.service';
-import { ImageSearchService } from '../../core/services/image-search.service';
 import { Product } from '../../core/models/product.model';
 
 @Component({
@@ -19,7 +18,6 @@ export class SignatureScentsComponent {
   private router = inject(Router);
   signature = inject(SignatureService);
   private productService = inject(ProductService);
-  imageSearch = inject(ImageSearchService);
 
   removingId = signal<string | null>(null);
 
@@ -29,7 +27,8 @@ export class SignatureScentsComponent {
   });
 
   getProductImage(product: Product): string {
-    return this.imageSearch.getImageUrl(product) || product.images?.[0] || '';
+    const img = product.images?.[0];
+    return img && !img.includes('placeholder') ? img : '';
   }
 
   hasImage(product: Product): boolean {

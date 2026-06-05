@@ -20,6 +20,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/storefront/storefront.component').then(m => m.StorefrontComponent)
   },
   {
+    path: 'product/preview',
+    loadComponent: () => import('./pages/product-preview/product-preview.component').then(m => m.ProductPreviewComponent)
+  },
+  {
     path: 'product/:id',
     loadComponent: () => import('./pages/product-detail/product-detail.component').then(m => m.ProductDetailComponent)
   },
@@ -72,6 +76,10 @@ export const routes: Routes = [
       {
         path: 'best-selling',
         loadComponent: () => import('./pages/admin/admin-best-selling/admin-best-selling.component').then(m => m.AdminBestSellingComponent)
+      },
+      {
+        path: 'catalog',
+        loadComponent: () => import('./pages/admin/admin-catalog/admin-catalog.component').then(m => m.AdminCatalogComponent)
       }
     ]
   },

@@ -1,0 +1,155 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.catalog {
+  &__header {
+    margin-bottom: $space-lg;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $fs-xl;
+    font-weight: $fw-regular;
+    color: $color-text-primary;
+    margin-bottom: $space-xs;
+  }
+
+  &__subtitle {
+    font-size: $fs-sm;
+    color: $color-text-secondary;
+  }
+
+  &__search {
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+    padding: $space-sm $space-md;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    margin-bottom: $space-md;
+
+    input {
+      flex: 1;
+      font-size: $fs-sm;
+      background: transparent;
+      color: $color-text-primary;
+
+      &::placeholder { color: $color-text-secondary; }
+    }
+  }
+
+  &__stats {
+    font-size: $fs-xs;
+    color: $color-text-secondary;
+    margin-bottom: $space-md;
+  }
+
+  &__loading, &__empty {
+    text-align: center;
+    padding: $space-3xl;
+    color: $color-text-secondary;
+    font-size: $fs-sm;
+  }
+
+  &__table-wrap {
+    overflow-x: auto;
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: $fs-sm;
+
+    th {
+      text-align: left;
+      padding: $space-sm $space-md;
+      font-size: $fs-xs;
+      font-weight: $fw-semibold;
+      letter-spacing: $ls-wide;
+      text-transform: uppercase;
+      color: $color-text-secondary;
+      border-bottom: 1px solid $color-border;
+      white-space: nowrap;
+    }
+
+    td {
+      padding: $space-sm $space-md;
+      border-bottom: 1px solid $color-surface;
+      vertical-align: middle;
+    }
+  }
+
+  &__img-wrap {
+    width: 36px;
+    height: 36px;
+    border-radius: $radius-sm;
+    overflow: hidden;
+    background: $color-surface;
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__img-missing {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fffde7;
+  }
+
+  &__name-cell {
+    font-family: $font-heading;
+    font-weight: $fw-regular;
+  }
+
+  &__gender-badge {
+    font-size: 10px;
+    font-weight: $fw-semibold;
+    letter-spacing: $ls-wide;
+    padding: 2px 6px;
+    border-radius: $radius-sm;
+    text-transform: uppercase;
+
+    &[data-gender="female"] { background: #fce4ec; color: #c62828; }
+    &[data-gender="male"] { background: #e3f2fd; color: #1565c0; }
+    &[data-gender="unisex"] { background: #f3e5f5; color: #6a1b9a; }
+  }
+
+  &__date-cell {
+    white-space: nowrap;
+    color: $color-text-secondary;
+  }
+
+  &__actions {
+    display: flex;
+    gap: $space-xs;
+  }
+
+  &__btn {
+    padding: 4px 8px;
+    font-size: 10px;
+    font-weight: $fw-semibold;
+    letter-spacing: $ls-wide;
+    border-radius: $radius-sm;
+    white-space: nowrap;
+    text-transform: uppercase;
+
+    &--add {
+      background: $color-cta;
+      color: $color-cta-text;
+    }
+
+    &--delete {
+      background: transparent;
+      color: $color-text-secondary;
+      border: 1px solid $color-border;
+
+      &:hover { color: #c62828; border-color: #c62828; }
+    }
+  }
+}

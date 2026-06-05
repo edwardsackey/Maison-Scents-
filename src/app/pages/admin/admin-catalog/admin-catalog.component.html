@@ -1,0 +1,79 @@
+<div class="catalog">
+  <div class="catalog__header">
+    <h2 class="catalog__title">Global Perfume Catalog</h2>
+    <p class="catalog__subtitle">AI-enriched perfume database. Every search grows the catalog.</p>
+  </div>
+
+  <div class="catalog__search">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <circle cx="11" cy="11" r="8" stroke="#6B6B6B" stroke-width="1.5"/>
+      <path d="M21 21L16.65 16.65" stroke="#6B6B6B" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <input type="text" placeholder="Search catalog..." (input)="onSearch($event)">
+  </div>
+
+  <div class="catalog__stats">
+    <span>{{ entries().length }} enriched perfumes</span>
+  </div>
+
+  @if (loading()) {
+    <p class="catalog__loading">Loading catalog...</p>
+  } @else if (filteredEntries.length === 0) {
+    <p class="catalog__empty">No enriched perfumes yet. They appear automatically when users search for perfumes not in the store.</p>
+  } @else {
+    <div class="catalog__table-wrap">
+      <table class="catalog__table">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Brand</th>
+            <th>Gender</th>
+            <th>Family</th>
+            <th>Enriched</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (entry of filteredEntries; track entry.id) {
+            <tr>
+              <td>
+                <div class="catalog__img-wrap">
+                  @if (entry.image_url) {
+                    <img [src]="entry.image_url" [alt]="entry.name" class="catalog__img">
+                  } @else {
+                    <div class="catalog__img-missing" title="No image available">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 9V13M12 17H12.01" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="12" cy="12" r="10" stroke="#F59E0B" stroke-width="1.5"/>
+                      </svg>
+                    </div>
+                  }
+                </div>
+              </td>
+              <td class="catalog__name-cell">{{ entry.name }}</td>
+              <td>{{ entry.brand }}</td>
+              <td>
+                <span class="catalog__gender-badge" [attr.data-gender]="entry.gender">
+                  {{ entry.gender }}
+                </span>
+              </td>
+              <td>{{ entry.scent_family || '—' }}</td>
+              <td class="catalog__date-cell">{{ entry.enriched_at | date:'shortDate' }}</td>
+              <td>
+                <div class="catalog__actions">
+                  <button class="catalog__btn catalog__btn--add" (click)="addToStore(entry)" title="Add to my store">
+                    + Store
+                  </button>
+                  <button class="catalog__btn catalog__btn--delete" (click)="deleteEntry(entry.id)" title="Remove from catalog">
+                    Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>
