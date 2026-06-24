@@ -10,7 +10,7 @@
   </button>
 
   <div class="hero__content">
-    <h1 class="hero__title">{{ genderLabel }}</h1>
+    <h1 class="hero__title">{{ genderLabel() }}</h1>
     <div class="hero__label">
       <span class="hero__line"></span>
       <span class="hero__label-text">THE COLLECTION</span>
@@ -132,12 +132,12 @@
     <app-skeleton-loader [count]="6"></app-skeleton-loader>
   } @else {
     <div class="products__grid">
-      @for (product of products; track product.id; let i = $index) {
+      @for (product of products(); track product.id; let i = $index) {
         <app-product-card [product]="product" [animationDelay]="i * 60"></app-product-card>
       }
     </div>
 
-    @if (products.length === 0) {
+    @if (products().length === 0) {
       <div class="products__empty">
         <p>No fragrances match your filters.</p>
         <button class="products__reset" (click)="clearFilters()">Clear Filters</button>

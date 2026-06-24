@@ -101,13 +101,9 @@ export class StorefrontComponent implements OnInit, OnDestroy {
     this.searchSub?.unsubscribe();
   }
 
-  get genderLabel(): string {
-    return this.gender() === 'female' ? 'For Her' : 'For Him';
-  }
+  genderLabel = computed(() => this.gender() === 'female' ? 'For Her' : 'For Him');
 
-  get products(): Product[] {
-    return this.filterService.filteredProducts();
-  }
+  products = computed(() => this.filterService.filteredProducts());
 
   onSearch(event: Event): void {
     const value = (event.target as HTMLInputElement).value;

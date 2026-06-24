@@ -45,10 +45,10 @@ export class FilterService {
 
     switch (this.sortBy()) {
       case 'price-asc':
-        products = [...products].sort((a, b) => a.sizes[0].price - b.sizes[0].price);
+        products = [...products].sort((a, b) => (a.sizes[0]?.price ?? 0) - (b.sizes[0]?.price ?? 0));
         break;
       case 'price-desc':
-        products = [...products].sort((a, b) => b.sizes[0].price - a.sizes[0].price);
+        products = [...products].sort((a, b) => (b.sizes[0]?.price ?? 0) - (a.sizes[0]?.price ?? 0));
         break;
       case 'best-selling':
         products = [...products].sort((a, b) => b.total_units_sold - a.total_units_sold);

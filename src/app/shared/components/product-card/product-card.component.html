@@ -41,9 +41,13 @@
     <span class="card__brand">{{ product().brand }}</span>
     <h3 class="card__name">{{ product().name }}</h3>
     <div class="card__price-row">
-      <span class="card__size">{{ product().sizes[0].ml }}ml</span>
-      <span class="card__dot"></span>
-      <span class="card__price">GHS {{ product().sizes[0].price.toLocaleString() }}</span>
+      @if (product().sizes.length > 0) {
+        <span class="card__size">{{ product().sizes[0].ml }}ml</span>
+        <span class="card__dot"></span>
+        <span class="card__price">GHS {{ product().sizes[0].price.toLocaleString() }}</span>
+      } @else {
+        <span class="card__price card__price--tbd">Price on request</span>
+      }
     </div>
   </div>
 </a>
